@@ -27,7 +27,13 @@ def computeNextFrame(numFrame, coordonnee):
     y = coordonnee[1]
     
     # Mise à jour des coordonnées
-    if direction == "up":
+    
+    # Propagation du déplacement des noeuds
+    for n in range(len(coordonne) -1, 0, -1):
+        coordonnee[n][0] = coordonnee[n-1][0]
+        coordonnee[n][1] = coordonnee[n-1][1]
+        
+    """if direction == "up":
         y = y - 20
         #print("y:", y)
         
@@ -54,7 +60,7 @@ def computeNextFrame(numFrame, coordonnee):
         y = 500
         
     elif y > 500:
-        y = 0
+        y = 0"""
     # Dessin de la tête du serpent
     can.create_rectangle(x, y, x + 20, y+20, outline = "yellow", fill="red")
     
@@ -106,6 +112,9 @@ if __name__ == "__main__":
     direction = "up"
     
     # Coordonnées de chaque noeud du serpent (x, y)
+    # En déplacement, elles doivent se propager: les coordonnées du noeud 3 deviennent celles du noeud 2
+    # et celles du noeud 2 deviennent celles du noeud 1.
+    # Enfin, les coordonnées du noeud 0 (la tête) sont modifiées selon la direction.
     coordonnee = [[200, 200], [200, 220], [200, 240], [220, 240]]
 
 
