@@ -44,11 +44,27 @@ def computeNextFrame(numFrame, coordonnee):
     tk.after(100, lambda:computeNextFrame(numFrame, coordonnee))
 
 
+
 # On affiche le canevas
 can.pack()
 
+
+
+def right(event):
+    # Modification de la variable globale direction
+    global direction
+    direction = "right"
+    print(direction)
+
+
+direction = "up"
+
+
 # Construction de la première étape de simulation
 computeNextFrame(0, 500)
+
+# Appuyer sur la touche "d" appellera la fonction right()
+tk.bind("d", right)
 
 # lancement de la boucle principale qui écoute les évènements (claviers...)
 tk.mainloop() # Cet appel doit être la derniere instruction du programme
