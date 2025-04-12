@@ -1,6 +1,4 @@
-"main.py contient le code principal du jeu de Snake"
-
-# Code principal du jeu
+"main.py lance le jeu"
 import pygame
 pygame.init()
 
