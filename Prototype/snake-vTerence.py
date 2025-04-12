@@ -29,7 +29,7 @@ def computeNextFrame(numFrame, coordonnee):
     # Mise à jour des coordonnées
     
     # Propagation du déplacement des noeuds
-    for n in range(len(coordonne) -1, 0, -1):
+    for n in range(len(coordonnee) -1, 0, -1):
         coordonnee[n][0] = coordonnee[n-1][0]
         coordonnee[n][1] = coordonnee[n-1][1]
         
@@ -119,7 +119,7 @@ if __name__ == "__main__":
 
 
     # Construction de la première étape de simulation
-    computeNextFrame(0, [200, 200])
+    computeNextFrame(0, coordonnee)
 
     # Appuyer sur la touche "d" appellera la fonction right()
     tk.bind("<d>", right)
