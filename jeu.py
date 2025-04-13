@@ -2,6 +2,7 @@
 # Importations nécessaires
 import pygame
 pygame.init()
+from serpent import *
 
 
 class Jeu:
@@ -16,6 +17,9 @@ class Jeu:
         # Initialiser la fenêtre de jeu
         self.fenetre = pygame.display.set_mode((hauteur_fenetre, largeur_fenetre))
         pygame.display.set_caption("Python Snake !")
+
+        # Instancier le serpent du joueur
+        self.serpent = Serpent()
 
 
     def executer(self):
