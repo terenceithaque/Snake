@@ -12,6 +12,18 @@ class Serpent(pygame.sprite.Sprite):
 
         self.tete = self.charger_tete(self.img_tetes[0])
 
+        self.rects = []
+        self.rect_tete = self.tete.get_rect()
+        self.rects.append(self.rect_tete)
+
+        # Liste des positions du serpent
+        self.positions = []
+        self.positions.append((self.rect_tete.x, self.rect_tete.y))
+
+        # Ajouter deux premiers noeuds au serpent
+        self.noeud_1 = pygame.image.load("assets/images/noeud1.png")
+        self.noeud_2 = pygame.image.load("assets/images/noeud2.png")
+
 
     def charger_tete(self, fichier:str) -> pygame.Surface:
         "Charge une tête du serpent depuis un fichier PNG ou JPG, renvoie la surface correspondante."
