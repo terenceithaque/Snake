@@ -1,12 +1,7 @@
 "serpent.py contient une classe Serpent qui représente le serpent du joueur."
 import pygame
 
-
-
-class Membre(pygame.sprite.Sprite):
-    "Un membre du serpent"
-    def __init__(self):
-        pass
+        
 
     
 class Serpent(pygame.sprite.Sprite):
@@ -75,7 +70,8 @@ class Serpent(pygame.sprite.Sprite):
 
 
     def afficher(self):
-        for membre in self.membres:
+        """"for membre in self.membres:"""
+        pass
 
 
 
