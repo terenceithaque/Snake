@@ -1,3 +1,5 @@
 Protitype/
 __pycache__/
+*.pyc 
+*.pyo
 /NSI1_20_Snake.opd
