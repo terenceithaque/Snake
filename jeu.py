@@ -19,7 +19,7 @@ class Jeu:
         pygame.display.set_caption("Python Snake !")
 
         # Instancier le serpent du joueur
-        self.serpent = Serpent()
+        self.serpent = Serpent(self.fenetre)
 
 
     def executer(self):
@@ -35,4 +35,11 @@ class Jeu:
                 # Si le joueur souhaite quitter le jeu
                 if evenement.type == pygame.QUIT:
                     # Arrêter la boucle de jeu$
-                    execution = False    
+                    execution = False
+
+
+            # Afficher le serpent
+            self.serpent.afficher()   
+
+
+            pygame.display.flip()        

@@ -1,6 +1,6 @@
 "serpent.py contient une classe Serpent qui représente le serpent du joueur."
 import pygame
-
+from membre import *
         
 
     
@@ -19,20 +19,15 @@ class Serpent(pygame.sprite.Sprite):
         self.taille = 3 # Taille du serpent (nombre de membres)
 
         self.membres = []
-        self.tete = self.charger_tete(self.img_tetes[0])
-        self.membres.append(self.tete)
-        self.rects = []
-        self.rect_tete = self.tete.get_rect()
-        self.rects.append(self.rect_tete)
-
-        # Liste des positions du serpent
-        self.positions = []
-        self.positions.append((self.rect_tete.x, self.rect_tete.y))
+        self.tete = Membre(self.img_tetes[0], self.ecran, 0, 0)
 
         # Ajouter deux premiers noeuds au serpent
-        self.noeud_1 = self.ajouter_noeuds(self.taille + 1)[0]
-        self.noeud_2 = self.ajouter_noeuds(self.taille + 1)[0]
+        self.noeud_1 = Membre("assets/images/noeud1.png", self.ecran, 10, 10)
+        self.noeud_2 = Membre("assets/images/noeud2.png", self.ecran, 10, 10)
 
+        self.membres.append(self.tete)
+        self.membres.append(self.noeud_1)
+        self.membres.append(self.noeud_2)
 
     def charger_tete(self, fichier:str) -> pygame.Surface:
         "Charge une tête du serpent depuis un fichier PNG ou JPG, renvoie la surface correspondante."
@@ -70,8 +65,8 @@ class Serpent(pygame.sprite.Sprite):
 
 
     def afficher(self):
-        """"for membre in self.membres:"""
-        pass
+        for membre in self.membres:
+            membre.afficher()
 
 
 
