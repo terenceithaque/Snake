@@ -1,14 +1,25 @@
 "serpent.py contient une classe Serpent qui représente le serpent du joueur."
 import pygame
 
+
+
+class Membre(pygame.sprite.Sprite):
+    "Un membre du serpent"
+    def __init__(self):
+        pass
+
+    
 class Serpent(pygame.sprite.Sprite):
     "Serpent du joueur"
-    def __init__(self):
+    def __init__(self, ecran:pygame.Surface):
         "Constructeur"
         # Différentes images pour la tête du serpent
         self.img_tetes = ["assets/images/tete.png", "assets/images/teteE.png", "assets/images/teteN.png",
                       "assets/images/teteS.png", "assets/images/teteW.png"]
         
+
+
+        self.ecran = ecran
 
         self.taille = 3 # Taille du serpent (nombre de membres)
 
@@ -60,7 +71,12 @@ class Serpent(pygame.sprite.Sprite):
         # Mettre à jour la taille du serpent
         self.taille = taille_max
 
-        return self.noeuds_ajoutes        
+        return self.noeuds_ajoutes
+
+
+    def afficher(self):
+        for membre in self.membres:
+
 
 
 
