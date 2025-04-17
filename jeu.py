@@ -21,6 +21,9 @@ class Jeu:
         # Instancier le serpent du joueur
         self.serpent = Serpent(self.fenetre)
 
+        self.serpent.ajuster_membres("verticale")
+        #self.serpent.ajuster_membres("horizontale")
+
 
     def executer(self):
         "Exécute la boucle de jeu."
@@ -36,6 +39,9 @@ class Jeu:
                 if evenement.type == pygame.QUIT:
                     # Arrêter la boucle de jeu$
                     execution = False
+
+                if evenement.type == pygame.MOUSEMOTION:
+                    print(pygame.mouse.get_pos())
 
 
             # Afficher le serpent

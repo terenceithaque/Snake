@@ -29,10 +29,14 @@ class Membre(pygame.sprite.Sprite):
         self.rect.x = x
         return self.rect.x
 
-    def positiionner_y(self, y=0) -> int:
+    def positionner_y(self, y=0) -> int:
         "Change la position y du membre pour la valeur d'ordonnée spécifiée, 0 par défaut."
         self.rect.y = y
         return self.rect.y
+    
+    def position(self) -> tuple:
+        "Renvoie la position actuelle du membre sous forme de tuple."
+        return (self.rect.x, self.rect.y)
 
     def afficher(self):
         "Affiche le membre à l'écran."

@@ -39,6 +39,39 @@ class Serpent(pygame.sprite.Sprite):
         # Charger le fichier image de la tête
         return pygame.image.load(fichier)
     
+
+    def ajuster_membres(self, sens="verticale") -> list:
+        """"Ajuste (aligne) les membres du serpent et renvoie la liste des positions actualisée.
+        sens: direction de l'alignement (verticale ou horizontale)."""
+        # Le x et le y de départ sont ceux de la tête
+        x_depart = self.tete.rect.x
+        y_depart = self.tete.rect.y
+
+        positions = []
+
+        # Si on doit aligner les membres à la verticale
+        if sens == "verticale":
+            for membre in self.membres:
+                # Positionner le membre actuel à la verticale
+                for n in range(1, self.taille + 1):
+                    y  = y_depart + 20 * n
+                    membre.positionner_y(y)
+                    positions.append(membre.position())
+
+        # Si on doit aligner les membres à l'horizontale
+        elif sens == "horizontale":
+            for membre in self.membres:
+                # Positionner le membre actuel à l'horizontale
+                for n in range(1, self.taille + 1):
+                    x = x_depart + 20 * n
+                    membre.positionner_x(x)
+                    positions.append(membre.position())
+
+        return positions        
+                   
+
+
+    
     def ajouter_noeuds(self, taille_max:int) -> list:
         """Ajoute de nouveaux noeuds au serpent jusqu'à atteindre la taille taille_max. Retourne la liste des surfaces correspondantes à ces nouveaux noeuds."""
 
