@@ -27,7 +27,7 @@ class Jeu:
 
         # Evénements personnalisés
         self.mouvement_serpent = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.mouvement_serpent, 1000)
+        pygame.time.set_timer(self.mouvement_serpent, 100)
 
 
     def executer(self):
@@ -75,11 +75,13 @@ class Jeu:
 
 
 
-            # Déplacer le serpent en fonction de la direction
-            if self.serpent.direction == "haut":
-                self.serpent.deplacer_haut()
+                if evenement.type == self.mouvement_serpent:
+                     # Déplacer le serpent en fonction de la direction
+                    if self.serpent.direction == "haut":
+                        self.serpent.deplacer_haut()
 
-            # Autres directions à implémenter                        
+                    elif self.serpent.direction == "bas":
+                        self.serpent.deplacer_bas()                        
 
 
             # Afficher le serpent
