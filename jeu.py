@@ -81,7 +81,10 @@ class Jeu:
                         self.serpent.deplacer_haut()
 
                     elif self.serpent.direction == "bas":
-                        self.serpent.deplacer_bas()                        
+                        self.serpent.deplacer_bas()
+
+                    elif self.serpent.direction == "gauche":
+                        self.serpent.deplacer_gauche()                            
 
 
             # Afficher le serpent

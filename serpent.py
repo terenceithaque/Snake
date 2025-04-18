@@ -20,11 +20,11 @@ class Serpent(pygame.sprite.Sprite):
         self.taille = 3 # Taille du serpent (nombre de membres)
 
         self.membres = []
-        self.tete = Membre(self.img_tetes[0], self.ecran, 0, 0)
+        self.tete = Membre(self.img_tetes[0], self.ecran, 364, 239)
 
         # Ajouter deux premiers noeuds au serpent
-        self.noeud_1 = Membre("assets/images/noeud1.png", self.ecran, 10, 10)
-        self.noeud_2 = Membre("assets/images/noeud2.png", self.ecran, 10, 10)
+        self.noeud_1 = Membre("assets/images/noeud1.png", self.ecran, 354, 239)
+        self.noeud_2 = Membre("assets/images/noeud2.png", self.ecran, 344, 239)
 
         self.membres.append(self.tete)
         self.membres.append(self.noeud_1)
@@ -150,7 +150,35 @@ class Serpent(pygame.sprite.Sprite):
             pos_prec = self.positions_prec[i-1]
             # Repositionner le membre
             self.membres[i].positionner_x(pos_prec[0])
-            self.membres[i].positionner_y(pos_prec[1])       
+            self.membres[i].positionner_y(pos_prec[1])
+
+
+    def deplacer_gauche(self):
+        "Déplace le serpent vers la gauche"
+        # Positions x et y actuelles de la tête
+        tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
+        # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
+        self.tete = Membre("assets/images/teteE.png", self.ecran, tete_x, tete_y)
+        self.tete.positionner_x(tete_x - 5)
+        self.membres[0] = self.tete
+
+
+        # Position précédente de chaque membre du serpent
+        self.positions_prec = [membre.position() for membre in self.membres]
+
+
+        # Faire suivre les segments
+        for i in range(1, len(self.membres)):
+            # Position précédente du membre
+            pos_prec = self.positions_prec[i-1]
+            # Repositionner le membre
+            self.membres[i].positionner_x(pos_prec[0])
+            self.membres[i].positionner_y(pos_prec[1])
+
+
+        # Position précédente de chaque membre du serpent
+        self.positions_prec = [membre.position() for membre in self.membres]
+               
 
 
 
