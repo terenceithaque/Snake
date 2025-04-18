@@ -13,7 +13,8 @@ class Serpent(pygame.sprite.Sprite):
                       "assets/images/teteS.png", "assets/images/teteW.png"]
         
 
-
+        # Direction dans laquelle le serpent se déplace
+        self.direction = "gauche"
         self.ecran = ecran
 
         self.taille = 3 # Taille du serpent (nombre de membres)
@@ -97,13 +98,24 @@ class Serpent(pygame.sprite.Sprite):
         return self.noeuds_ajoutes
     
 
-    def deplacer_haut(self, touches):
+    def changer_direction(self, nouvelle_direction:str) -> str:
+        """Change la direction actuelle du serpent et renvoie cette dernière."""
+
+        # Tuple des direction autorisées
+        directions_autorisees = ("haut", "bas", "gauche", "droite")
+
+        assert (nouvelle_direction in directions_autorisees), "La nouvelle direction est invalide. Doit être haut, bas, gauche ou droite."
+
+        self.direction = nouvelle_direction
+        return self.direction
+
+    def deplacer_haut(self):
         "Déplace le serpent vers le haut"
         # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
         self.tete = Membre("assets/images/teteN.png", self.ecran, tete_x, tete_y)
-        self.tete.positionner_y(tete_y - 20)
+        self.tete.positionner_y(tete_y - 5)
         self.membres[0] = self.tete
 
         # Position précédente de chaque membre du serpent
@@ -118,6 +130,7 @@ class Serpent(pygame.sprite.Sprite):
             # Repositionner le membre
             self.membres[i].positionner_x(pos_prec[0])
             self.membres[i].positionner_y(pos_prec[1])
+
 
 
 

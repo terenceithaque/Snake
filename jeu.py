@@ -25,6 +25,11 @@ class Jeu:
         #self.serpent.ajuster_membres("horizontale")
 
 
+        # Evénements personnalisés
+        self.mouvement_serpent = pygame.USEREVENT + 1
+        pygame.time.set_timer(self.mouvement_serpent, 1000)
+
+
     def executer(self):
         "Exécute la boucle de jeu."
         # Mettre la variable d'exécution à True
@@ -48,10 +53,33 @@ class Jeu:
                     print(pygame.mouse.get_pos())
 
 
-                # Si le joeuur appuie sur la touche "flèche vers le haut"
+                # Si le joueur appuie sur la touche "flèche vers le haut"
                 if self.touches[pygame.K_UP]:
-                    # Déplacer le serpent vers le haut
-                    self.serpent.deplacer_haut(self.touches)    
+                    # Changer la direction du serpent
+                    self.serpent.changer_direction("haut")
+
+                # Si le joueur appuie sur la touche "flèche vers le bas"
+                elif self.touches[pygame.K_DOWN]:
+                    # Changer la direction du serpent
+                    self.serpent.changer_direction("bas")
+
+                # Si le joueur appuie sur la touche "flèche vers la gauche"
+                elif self.touches[pygame.K_LEFT]:
+                    # Changer la direction du serpent
+                    self.serpent.changer_direction("gauche")
+
+                # Si le joueur appuie sur la touche "flèche vers la droite"
+                elif self.touches[pygame.K_RIGHT]:
+                    # Changer la direction du serpent
+                    self.serpent.changer_direction("droite")
+
+
+
+            # Déplacer le serpent en fonction de la direction
+            if self.serpent.direction == "haut":
+                self.serpent.deplacer_haut()
+
+            # Autres directions à implémenter                        
 
 
             # Afficher le serpent
