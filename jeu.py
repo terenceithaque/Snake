@@ -32,6 +32,10 @@ class Jeu:
 
         # Commencer la boucle de jeu
         while execution:
+            self.fenetre.fill((0, 0, 0))
+
+            # Obtenir les touches pressées par le joueur
+            self.touches = pygame.key.get_pressed()
 
             # Capturer tous les événements utilisateur de la fenêtre (clics de souris, touches pressées, etc.)
             for evenement in pygame.event.get():
@@ -42,6 +46,12 @@ class Jeu:
 
                 if evenement.type == pygame.MOUSEMOTION:
                     print(pygame.mouse.get_pos())
+
+
+                # Si le joeuur appuie sur la touche "flèche vers le haut"
+                if self.touches[pygame.K_UP]:
+                    # Déplacer le serpent vers le haut
+                    self.serpent.deplacer_haut(self.touches)    
 
 
             # Afficher le serpent
