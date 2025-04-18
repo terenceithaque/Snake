@@ -176,8 +176,29 @@ class Serpent(pygame.sprite.Sprite):
             self.membres[i].positionner_y(pos_prec[1])
 
 
+
+
+
+    def deplacer_droite(self):
+        "Déplace le serpent vers la droite"
+         # Positions x et y actuelles de la tête
+        tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
+        # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
+        self.tete = Membre("assets/images/teteE.png", self.ecran, tete_x, tete_y)
+        self.tete.positionner_x(tete_x + 5)
+        self.membres[0] = self.tete
+
+
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
+
+        # Faire suivre les segments
+        for i in range(1, len(self.membres)):
+            # Position précédente du membre
+            pos_prec = self.positions_prec[i-1]
+            # Repositionner le membre
+            self.membres[i].positionner_x(pos_prec[0])
+            self.membres[i].positionner_y(pos_prec[1])    
                
 
 
