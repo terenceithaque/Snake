@@ -109,13 +109,13 @@ class Serpent(pygame.sprite.Sprite):
         self.direction = nouvelle_direction
         return self.direction
 
-    def deplacer_haut(self):
+    def deplacer_haut(self) -> None:
         "Déplace le serpent vers le haut"
         # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
         self.tete = Membre("assets/images/teteN.png", self.ecran, tete_x, tete_y)
-        self.tete.positionner_y(tete_y - 5)
+        self.tete.positionner_y(tete_y - 15)
         self.membres[0] = self.tete
 
         # Position précédente de chaque membre du serpent
@@ -132,13 +132,13 @@ class Serpent(pygame.sprite.Sprite):
             self.membres[i].positionner_y(pos_prec[1])
 
     
-    def deplacer_bas(self):
+    def deplacer_bas(self) -> None:
         "Déplace le serpent vers le bas"
         # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
         self.tete = Membre("assets/images/teteS.png", self.ecran, tete_x, tete_y)
-        self.tete.positionner_y(tete_y + 5)
+        self.tete.positionner_y(tete_y + 15)
         self.membres[0] = self.tete
 
         # Position précédente de chaque membre du serpent
@@ -153,13 +153,13 @@ class Serpent(pygame.sprite.Sprite):
             self.membres[i].positionner_y(pos_prec[1])
 
 
-    def deplacer_gauche(self):
+    def deplacer_gauche(self) -> None:
         "Déplace le serpent vers la gauche"
         # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
         self.tete = Membre("assets/images/teteE.png", self.ecran, tete_x, tete_y)
-        self.tete.positionner_x(tete_x - 5)
+        self.tete.positionner_x(tete_x - 15)
         self.membres[0] = self.tete
 
 
@@ -179,13 +179,13 @@ class Serpent(pygame.sprite.Sprite):
 
 
 
-    def deplacer_droite(self):
+    def deplacer_droite(self) -> None:
         "Déplace le serpent vers la droite"
          # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
-        self.tete = Membre("assets/images/teteE.png", self.ecran, tete_x, tete_y)
-        self.tete.positionner_x(tete_x + 5)
+        self.tete = Membre("assets/images/teteW.png", self.ecran, tete_x, tete_y)
+        self.tete.positionner_x(tete_x + 15)
         self.membres[0] = self.tete
 
 
@@ -198,13 +198,29 @@ class Serpent(pygame.sprite.Sprite):
             pos_prec = self.positions_prec[i-1]
             # Repositionner le membre
             self.membres[i].positionner_x(pos_prec[0])
-            self.membres[i].positionner_y(pos_prec[1])    
+            self.membres[i].positionner_y(pos_prec[1])
+
+
+
+    def hors_ecran(self) -> bool:
+        """Vérifie si le serpent est hors de l'écran, renvoie un booléen.
+        \n Plus précisément, pour que le résultat renvoyé soit True, il faut que chaque membre du serpent ait au moins une coordonnée x ou y en dehors des limites de l'écran.
+        Pour tout membre dérogeant à cette règle, la fonction renvoie False."""
+
+        # Vérifier si chacun des membre du serpent sort de l'écran
+        # Ici, on vérifie que tout memnbre du serpent a au moins une coordonnée x ou y sortant des limites de l'écran (de 0 à 700 pixels.)
+        return all(any([membre.position()[0] < 0, 
+                        membre.position()[1] < 0, 
+                        membre.position()[0] > 700, 
+                        membre.position()[1] > 700]) for membre in self.membres)
+
                
 
 
 
 
-    def afficher(self):
+    def afficher(self) -> None:
+        "Affiche le serpent à l'écran."
         for membre in self.membres:
             membre.afficher()
 

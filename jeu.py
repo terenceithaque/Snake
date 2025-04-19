@@ -90,6 +90,9 @@ class Jeu:
                         self.serpent.deplacer_droite()                                
 
 
+            if self.serpent.hors_ecran():
+                print("Le serpent est hors de l'écran !")
+                
             # Afficher le serpent
             self.serpent.afficher()   
 
