@@ -92,7 +92,29 @@ class Jeu:
 
             if self.serpent.hors_ecran():
                 print("Le serpent est hors de l'écran !")
-                
+                # Positions x et y de la tête du serpent
+                x, y = self.serpent.tete.position()
+                if x < 0:
+                    x = 700
+                    self.serpent.tete.positionner_x(x)
+                    self.serpent.ajuster_membres("verticale")
+
+                elif x > 700:
+                    x = 0
+                    self.serpent.tete.positionner_x(x)
+                    self.serpent.ajuster_membres("verticale")
+
+                if y < 0:
+                    y = 700
+                    self.serpent.tete.positionner_y(y)
+                    self.serpent.ajuster_membres("horizontale")
+
+                elif y > 700:
+                    y = 0
+                    self.serpent.tete.positionner_y(y)
+                    self.serpent.ajuster_membres("horizontale")
+
+
             # Afficher le serpent
             self.serpent.afficher()   
 

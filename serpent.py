@@ -20,7 +20,7 @@ class Serpent(pygame.sprite.Sprite):
         self.taille = 3 # Taille du serpent (nombre de membres)
 
         self.membres = []
-        self.tete = Membre(self.img_tetes[0], self.ecran, 364, 239)
+        self.tete = Membre(self.img_tetes[4], self.ecran, 364, 239)
 
         # Ajouter deux premiers noeuds au serpent
         self.noeud_1 = Membre("assets/images/noeud1.png", self.ecran, 354, 239)
@@ -100,23 +100,39 @@ class Serpent(pygame.sprite.Sprite):
 
     def changer_direction(self, nouvelle_direction:str) -> str:
         """Change la direction actuelle du serpent et renvoie cette dernière."""
-
+        tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         # Tuple des direction autorisées
         directions_autorisees = ("haut", "bas", "gauche", "droite")
 
         assert (nouvelle_direction in directions_autorisees), "La nouvelle direction est invalide. Doit être haut, bas, gauche ou droite."
 
         self.direction = nouvelle_direction
+        # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
+        if self.direction == "haut":
+            self.tete = Membre("assets/images/teteN.png", self.ecran, tete_x, tete_y)
+            self.membres[0] = self.tete
+
+        elif self.direction == "bas":
+            self.tete = Membre("assets/images/teteS.png", self.ecran, tete_x, tete_y)
+            self.membres[0] = self.tete
+
+        elif self.direction == "gauche":
+            self.tete = Membre("assets/images/teteE.png", self.ecran, tete_x, tete_y)
+            self.membres[0] = self.tete
+
+        elif self.direction == "droite":
+            self.tete = Membre("assets/images/teteW.png", self.ecran, tete_x, tete_y)
+            self.membres[0] = self.tete
+
+                
+
         return self.direction
 
     def deplacer_haut(self) -> None:
         "Déplace le serpent vers le haut"
         # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
-        # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
-        self.tete = Membre("assets/images/teteN.png", self.ecran, tete_x, tete_y)
         self.tete.positionner_y(tete_y - 15)
-        self.membres[0] = self.tete
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
@@ -136,10 +152,7 @@ class Serpent(pygame.sprite.Sprite):
         "Déplace le serpent vers le bas"
         # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
-        # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
-        self.tete = Membre("assets/images/teteS.png", self.ecran, tete_x, tete_y)
         self.tete.positionner_y(tete_y + 15)
-        self.membres[0] = self.tete
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
@@ -157,10 +170,7 @@ class Serpent(pygame.sprite.Sprite):
         "Déplace le serpent vers la gauche"
         # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
-        # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
-        self.tete = Membre("assets/images/teteE.png", self.ecran, tete_x, tete_y)
         self.tete.positionner_x(tete_x - 15)
-        self.membres[0] = self.tete
 
 
         # Position précédente de chaque membre du serpent
@@ -183,10 +193,7 @@ class Serpent(pygame.sprite.Sprite):
         "Déplace le serpent vers la droite"
          # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
-        # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
-        self.tete = Membre("assets/images/teteW.png", self.ecran, tete_x, tete_y)
         self.tete.positionner_x(tete_x + 15)
-        self.membres[0] = self.tete
 
 
         # Position précédente de chaque membre du serpent
