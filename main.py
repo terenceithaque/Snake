@@ -17,7 +17,7 @@ while True:
     rejouer = messagebox.askyesno("Rejouer ?", "Souhaitez-vous rejouer ?")
     # Si le joueur veut rejouer
     if rejouer:
-        # Réinitialiser pygame et relancer le jeu
+        # Réinitialiser  pygame et relancer le jeu
         pygame.init()
         jeu = Jeu(800, 600)
         jeu.executer()

@@ -25,9 +25,40 @@ class Jeu:
         #self.serpent.ajuster_membres("horizontale")
 
 
+        # Messages affichés sur l'état de la pause
+        self.messages_pause = {
+            False: "Appuyez espace pour mettre en pause",
+            True : "Appuyez sur espace pour reprendre"
+        }
+        
+
+
+
         # Evénements personnalisés
         self.mouvement_serpent = pygame.USEREVENT + 1
         pygame.time.set_timer(self.mouvement_serpent, 100)
+
+
+
+        self.pause = False
+
+
+    def afficher_message_pause(self):
+        "Affiche le message de pause selon l'état actuel du jeu."
+        # Afficher le message de pause approprié
+        message_pause = self.messages_pause[self.pause]
+        self.police_pause = pygame.font.Font(None, 25)
+        affichage = self.police_pause.render(message_pause, True, (255, 255, 255))
+        self.fenetre.blit(affichage, (0, 0))
+
+
+    def pauser(self) -> bool:
+        "Met le jeu en pause ou le sort de la pause"
+        self.pause = not self.pause
+        print("Etat de la pause :", self.pause)
+        
+        
+        return self.pause    
 
 
     def executer(self):
@@ -38,6 +69,10 @@ class Jeu:
         # Commencer la boucle de jeu
         while execution:
             self.fenetre.fill((0, 0, 0))
+
+
+            
+            
 
             # Obtenir les touches pressées par le joueur
             self.touches = pygame.key.get_pressed()
@@ -60,38 +95,50 @@ class Jeu:
 
                     # Haut
                     if evenement.key == pygame.K_UP:
-                        self.serpent.changer_direction("haut")
+                        if not self.pause:
+                            self.serpent.changer_direction("haut")
 
                     # Bas
                     elif evenement.key == pygame.K_DOWN:
                         # Changer la direction du serpent
-                        self.serpent.changer_direction("bas")
+                        if not self.pause:
+                            self.serpent.changer_direction("bas")
 
                     # Gauche
                     elif evenement.key == pygame.K_LEFT:
                         # Changer la direction du serpent
-                        self.serpent.changer_direction("gauche")
+                        if not self.pause:
+                            self.serpent.changer_direction("gauche")
 
                     # Droite
                     elif evenement.key == pygame.K_RIGHT:
                         # Changer la direction du serpent
-                        self.serpent.changer_direction("droite")
+                        if not self.pause:
+                            self.serpent.changer_direction("droite")
+
+                    # Pause
+                    elif evenement.key == pygame.K_SPACE:
+                        self.pauser()    
 
 
 
                 if evenement.type == self.mouvement_serpent:
                      # Déplacer le serpent en fonction de la direction
                     if self.serpent.direction == "haut":
-                        self.serpent.deplacer_haut()
+                        if not self.pause:
+                            self.serpent.deplacer_haut()
 
                     elif self.serpent.direction == "bas":
-                        self.serpent.deplacer_bas()
+                        if not self.pause:
+                            self.serpent.deplacer_bas()
 
                     elif self.serpent.direction == "gauche":
-                        self.serpent.deplacer_gauche()
+                        if not self.pause:
+                            self.serpent.deplacer_gauche()
 
                     elif self.serpent.direction == "droite":
-                        self.serpent.deplacer_droite()                                
+                        if not self.pause:
+                            self.serpent.deplacer_droite()                                
 
 
             if self.serpent.hors_ecran():
@@ -123,4 +170,7 @@ class Jeu:
             self.serpent.afficher()   
 
 
+            self.afficher_message_pause()
+
+            
             pygame.display.flip()        
