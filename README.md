@@ -7,6 +7,8 @@ Le projet contient les fichiers suivants:
     - serpent.py : contient la classe Serpent, représentant le serpent incarné par le joueur.
     - membre.py : contient la classe Membre, représentant un membre du corps du serpent.
     - pomme.py : contient la classe Pomme, élément qui doit être avalé par le serpent pour grossir et gagner des points.
+    - joueur.py: contient la classe Joueur permettant de gérer le joueur.
+    - historique_coordonnees.py : contient la classe HistoriqueCoords permettant d'enregistrer les positions de chaque membre du serpent à chaque moment du jeu.
 
 
 Pour en savoir plus sur pygame, visitez https://www.pygame.org

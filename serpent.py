@@ -70,7 +70,15 @@ class Serpent(pygame.sprite.Sprite):
                     membre.positionner_x(x)
                     positions.append(membre.position())
 
-        return positions        
+        return positions
+
+
+
+    def supprimer_membres_inutiles(self) -> list:
+        """Supprime les membres inutiles de la liste des membres du serpent.
+        Un membre est considéré comme inutile à partir du moment où sa position est incorrecte suite à un mouvement."""
+
+        pass        
                    
 
 
@@ -113,25 +121,25 @@ class Serpent(pygame.sprite.Sprite):
         if self.direction == "haut":
             print(self.direction)
             self.tete.changer_image(self.img_tetes["haut"], tete_x, tete_y)
-            self.membres[0] = self.tete
+            self.membres.insert(0, self.tete)
             pygame.display.update()
 
         elif self.direction == "bas":
             print(self.direction)
             self.tete.changer_image(self.img_tetes["bas"], tete_x, tete_y)
-            self.membres[0] = self.tete
+            self.membres.insert(0, self.tete)
             pygame.display.update()
 
         elif self.direction == "gauche":
             print(self.direction)
             self.tete.changer_image(self.img_tetes["gauche"], tete_x, tete_y)
-            self.membres[0] = self.tete
+            self.membres.insert(0, self.tete)
             pygame.display.update()
 
         elif self.direction == "droite":
             print(self.direction)
             self.tete.changer_image(self.img_tetes["droite"], tete_x, tete_y)
-            self.membres[0] = self.tete
+            self.membres.insert(0, self.tete)
             pygame.display.update()
 
                 
@@ -145,7 +153,6 @@ class Serpent(pygame.sprite.Sprite):
         self.tete.positionner_y(tete_y - 15)
 
 
-        self.membres.insert(0, self.tete)
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
@@ -162,7 +169,8 @@ class Serpent(pygame.sprite.Sprite):
 
 
         # Supprimer les anciens membres, désormais inutiles
-        self.membres.pop()    
+        """while len(self.membres) > self.taille:
+            self.membres.pop()"""    
 
     
     def deplacer_bas(self) -> None:
@@ -172,7 +180,6 @@ class Serpent(pygame.sprite.Sprite):
         self.tete.positionner_y(tete_y + 15)
 
 
-        self.membres.insert(0, self.tete)
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
@@ -185,8 +192,8 @@ class Serpent(pygame.sprite.Sprite):
             self.membres[i].positionner_x(pos_prec[0])
             self.membres[i].positionner_y(pos_prec[1])
 
-        # Supprimer les anciens membres, désormais inutiles
-        self.membres.pop() 
+        """ while len(self.membres) > self.taille:
+            self.membres.pop() """
 
 
     def deplacer_gauche(self) -> None:
@@ -195,7 +202,6 @@ class Serpent(pygame.sprite.Sprite):
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         self.tete.positionner_x(tete_x - 15)
 
-        self.membres.insert(0, self.tete)
 
 
         # Position précédente de chaque membre du serpent
@@ -212,7 +218,8 @@ class Serpent(pygame.sprite.Sprite):
 
 
         # Supprimer les anciens membres, désormais inutiles
-        self.membres.pop() 
+        """while len(self.membres) > self.taille:
+            self.membres.pop() """
 
 
     def deplacer_droite(self) -> None:
@@ -221,7 +228,6 @@ class Serpent(pygame.sprite.Sprite):
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         self.tete.positionner_x(tete_x + 15)
 
-        self.membres.insert(0, self.tete)
 
 
         # Position précédente de chaque membre du serpent
@@ -238,7 +244,8 @@ class Serpent(pygame.sprite.Sprite):
 
         # Supprimer les anciens membres, désormais inutiles
 
-        self.membres.pop() 
+        """while len(self.membres) > self.taille:
+            self.membres.pop() """
 
     def hors_ecran(self) -> bool:
         """Vérifie si le serpent est hors de l'écran, renvoie un booléen.

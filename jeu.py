@@ -75,7 +75,9 @@ class Jeu:
 
         # Commencer la boucle de jeu
         while execution:
-            self.fenetre.fill((0, 0, 0))
+            #self.fenetre.fill((0, 0, 0))
+
+            print("Nombre de membres du serpent :", len(self.serpent.membres))
 
 
             
