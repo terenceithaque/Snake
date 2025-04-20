@@ -53,25 +53,29 @@ class Jeu:
                     print(pygame.mouse.get_pos())
 
 
-                # Si le joueur appuie sur la touche "flèche vers le haut"
-                if self.touches[pygame.K_UP]:
-                    # Changer la direction du serpent
-                    self.serpent.changer_direction("haut")
+                # Détecter les touches pressées ET relâchées
+                if evenement.type == pygame.KEYUP:
+                    print("Touche pressée et relâchée !")
+                    # Changer la direction du serpent en fonction de la touche pressée et relâchée
 
-                # Si le joueur appuie sur la touche "flèche vers le bas"
-                elif self.touches[pygame.K_DOWN]:
-                    # Changer la direction du serpent
-                    self.serpent.changer_direction("bas")
+                    # Haut
+                    if evenement.key == pygame.K_UP:
+                        self.serpent.changer_direction("haut")
 
-                # Si le joueur appuie sur la touche "flèche vers la gauche"
-                elif self.touches[pygame.K_LEFT]:
-                    # Changer la direction du serpent
-                    self.serpent.changer_direction("gauche")
+                    # Bas
+                    elif evenement.key == pygame.K_DOWN:
+                        # Changer la direction du serpent
+                        self.serpent.changer_direction("bas")
 
-                # Si le joueur appuie sur la touche "flèche vers la droite"
-                elif self.touches[pygame.K_RIGHT]:
-                    # Changer la direction du serpent
-                    self.serpent.changer_direction("droite")
+                    # Gauche
+                    elif evenement.key == pygame.K_LEFT:
+                        # Changer la direction du serpent
+                        self.serpent.changer_direction("gauche")
+
+                    # Droite
+                    elif evenement.key == pygame.K_RIGHT:
+                        # Changer la direction du serpent
+                        self.serpent.changer_direction("droite")
 
 
 

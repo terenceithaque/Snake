@@ -10,10 +10,10 @@ class Serpent(pygame.sprite.Sprite):
         "Constructeur"
         # Différentes images pour la tête du serpent selon sa direction actuelle
         self.img_tetes = {
-            "haut": "assets/images/teteS.png", 
-            "bas": "assets/images/teteW.png",
-            "gauche": "assets/images/teteE.png", 
-            "droite": "assets/images/teteN.png"
+            "haut": "assets/images/teteN.png", 
+            "bas": "assets/images/teteS.png",
+            "gauche": "assets/images/teteW.png", 
+            "droite": "assets/images/teteE.png"
             }
         
 
@@ -111,20 +111,28 @@ class Serpent(pygame.sprite.Sprite):
         self.direction = nouvelle_direction
         # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
         if self.direction == "haut":
+            print(self.direction)
             self.tete.changer_image(self.img_tetes["haut"], tete_x, tete_y)
             self.membres[0] = self.tete
+            pygame.display.update()
 
         elif self.direction == "bas":
+            print(self.direction)
             self.tete.changer_image(self.img_tetes["bas"], tete_x, tete_y)
             self.membres[0] = self.tete
+            pygame.display.update()
 
         elif self.direction == "gauche":
+            print(self.direction)
             self.tete.changer_image(self.img_tetes["gauche"], tete_x, tete_y)
             self.membres[0] = self.tete
+            pygame.display.update()
 
         elif self.direction == "droite":
+            print(self.direction)
             self.tete.changer_image(self.img_tetes["droite"], tete_x, tete_y)
             self.membres[0] = self.tete
+            pygame.display.update()
 
                 
 
@@ -135,6 +143,9 @@ class Serpent(pygame.sprite.Sprite):
         # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         self.tete.positionner_y(tete_y - 15)
+
+
+        self.membres.insert(0, self.tete)
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
@@ -149,12 +160,19 @@ class Serpent(pygame.sprite.Sprite):
             self.membres[i].positionner_x(pos_prec[0])
             self.membres[i].positionner_y(pos_prec[1])
 
+
+        # Supprimer les anciens membres, désormais inutiles
+        self.membres.pop()    
+
     
     def deplacer_bas(self) -> None:
         "Déplace le serpent vers le bas"
         # Positions x et y actuelles de la tête
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         self.tete.positionner_y(tete_y + 15)
+
+
+        self.membres.insert(0, self.tete)
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
@@ -166,6 +184,9 @@ class Serpent(pygame.sprite.Sprite):
             # Repositionner le membre
             self.membres[i].positionner_x(pos_prec[0])
             self.membres[i].positionner_y(pos_prec[1])
+
+        # Supprimer les anciens membres, désormais inutiles
+        self.membres.pop() 
 
 
     def deplacer_gauche(self) -> None:
@@ -174,6 +195,8 @@ class Serpent(pygame.sprite.Sprite):
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         self.tete.positionner_x(tete_x - 15)
 
+        self.membres.insert(0, self.tete)
+
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
@@ -188,7 +211,8 @@ class Serpent(pygame.sprite.Sprite):
             self.membres[i].positionner_y(pos_prec[1])
 
 
-
+        # Supprimer les anciens membres, désormais inutiles
+        self.membres.pop() 
 
 
     def deplacer_droite(self) -> None:
@@ -197,6 +221,8 @@ class Serpent(pygame.sprite.Sprite):
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         self.tete.positionner_x(tete_x + 15)
 
+        self.membres.insert(0, self.tete)
+
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
@@ -210,6 +236,9 @@ class Serpent(pygame.sprite.Sprite):
             self.membres[i].positionner_y(pos_prec[1])
 
 
+        # Supprimer les anciens membres, désormais inutiles
+
+        self.membres.pop() 
 
     def hors_ecran(self) -> bool:
         """Vérifie si le serpent est hors de l'écran, renvoie un booléen.
