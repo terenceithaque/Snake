@@ -16,13 +16,14 @@ class Pomme(pygame.sprite.Sprite):
         - image: chemin du fichier image représentant la pomme
         - ecran: surface d'affichage de la pomme."""
 
+        super().__init__()
         # Surface d'affichage de la pomme
         self.ecran = ecran
 
 
         # Image de la pomme
         self.image = pygame.image.load(image)
-        self.image = pygame.transform.scale(self.image, (50, 50))
+        self.image = pygame.transform.scale(self.image, (20, 20))
         self.rect = self.image.get_rect()
 
 

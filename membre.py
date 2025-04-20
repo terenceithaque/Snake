@@ -12,6 +12,8 @@ class Membre(pygame.sprite.Sprite):
         - x: entier, position x de départ du membre
         - y : entier, position y de départ du membre."""
 
+
+        super().__init__()
         # Surface d'affichage du membre
         self.ecran = ecran
 

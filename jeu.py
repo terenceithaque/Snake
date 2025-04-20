@@ -3,6 +3,7 @@
 import pygame
 pygame.init()
 from serpent import *
+from pomme import *
 
 
 class Jeu:
@@ -23,6 +24,12 @@ class Jeu:
 
         self.serpent.ajuster_membres("verticale")
         #self.serpent.ajuster_membres("horizontale")
+
+
+        # Définir le groupe des pommes
+        self.pommes = pygame.sprite.Group()
+        # Ajouter une première pomme au groupe
+        self.pommes.add(Pomme(0, 0, 700, 700, "assets/images/pomme.png", self.fenetre))
 
 
         # Messages affichés sur l'état de la pause
@@ -167,7 +174,12 @@ class Jeu:
 
 
             # Afficher le serpent
-            self.serpent.afficher()   
+            self.serpent.afficher()
+
+
+            # Afficher les pommes
+            for pomme in self.pommes:
+                pomme.afficher()   
 
 
             self.afficher_message_pause()
