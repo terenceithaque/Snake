@@ -8,9 +8,13 @@ class Serpent(pygame.sprite.Sprite):
     "Serpent du joueur"
     def __init__(self, ecran:pygame.Surface):
         "Constructeur"
-        # Différentes images pour la tête du serpent
-        self.img_tetes = ["assets/images/tete.png", "assets/images/teteE.png", "assets/images/teteN.png",
-                      "assets/images/teteS.png", "assets/images/teteW.png"]
+        # Différentes images pour la tête du serpent selon sa direction actuelle
+        self.img_tetes = {
+            "haut": "assets/images/teteS.png", 
+            "bas": "assets/images/teteW.png",
+            "gauche": "assets/images/teteE.png", 
+            "droite": "assets/images/teteN.png"
+            }
         
 
         # Direction dans laquelle le serpent se déplace
@@ -20,15 +24,13 @@ class Serpent(pygame.sprite.Sprite):
         self.taille = 3 # Taille du serpent (nombre de membres)
 
         self.membres = []
-        self.tete = Membre(self.img_tetes[4], self.ecran, 364, 239)
+        self.tete = Membre(self.img_tetes["gauche"], self.ecran, 364, 239)
 
         # Ajouter deux premiers noeuds au serpent
         self.noeud_1 = Membre("assets/images/noeud1.png", self.ecran, 354, 239)
         self.noeud_2 = Membre("assets/images/noeud2.png", self.ecran, 344, 239)
 
-        self.membres.append(self.tete)
-        self.membres.append(self.noeud_1)
-        self.membres.append(self.noeud_2)
+        self.membres.extend([self.tete, self.noeud_1, self.noeud_2])
 
     def charger_tete(self, fichier:str) -> pygame.Surface:
         "Charge une tête du serpent depuis un fichier PNG ou JPG, renvoie la surface correspondante."
@@ -109,19 +111,19 @@ class Serpent(pygame.sprite.Sprite):
         self.direction = nouvelle_direction
         # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
         if self.direction == "haut":
-            self.tete = Membre("assets/images/teteN.png", self.ecran, tete_x, tete_y)
+            self.tete.changer_image(self.img_tetes["haut"], tete_x, tete_y)
             self.membres[0] = self.tete
 
         elif self.direction == "bas":
-            self.tete = Membre("assets/images/teteS.png", self.ecran, tete_x, tete_y)
+            self.tete.changer_image(self.img_tetes["bas"], tete_x, tete_y)
             self.membres[0] = self.tete
 
         elif self.direction == "gauche":
-            self.tete = Membre("assets/images/teteE.png", self.ecran, tete_x, tete_y)
+            self.tete.changer_image(self.img_tetes["gauche"], tete_x, tete_y)
             self.membres[0] = self.tete
 
         elif self.direction == "droite":
-            self.tete = Membre("assets/images/teteW.png", self.ecran, tete_x, tete_y)
+            self.tete.changer_image(self.img_tetes["droite"], tete_x, tete_y)
             self.membres[0] = self.tete
 
                 

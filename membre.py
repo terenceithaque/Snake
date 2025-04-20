@@ -24,6 +24,16 @@ class Membre(pygame.sprite.Sprite):
         self.rect.y = y
 
 
+    def changer_image(self, fichier:str, x:int, y:int) -> None:
+        "Change l'image actuelle du membre pour le contenu du fichier image indiqué"
+        self.image = pygame.image.load(fichier)
+        self.rect = self.image.get_rect()
+
+        # Position du membre sur l'écran
+        self.rect.x = x
+        self.rect.y = y    
+
+
     def positionner_x(self, x=0) -> int:
         "Change la position x du membre pour la valeur d'absisce spécifiée, 0 par défaut."
         self.rect.x = x
