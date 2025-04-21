@@ -21,6 +21,10 @@ class Membre(pygame.sprite.Sprite):
         self.image = pygame.image.load(image)
         self.rect = self.image.get_rect()
 
+
+        # Identifiant du membre dans la grille de jeu
+        self.identifiant = 1
+
         # Position du membre sur l'écran
         self.rect.x = x
         self.rect.y = y

@@ -34,6 +34,24 @@ class Grille:
         self.x2 = x2
         self.y2 = y2
 
+    def objet_dans_case(self, ligne=0, col=0, identifiant=1) -> tuple:
+        """Vérifie l'objet dans la case spécifiée à l'aide de son identifiant.
+        
+        Si l'identifiant est:
+            - 1: c'est un membre du serpent
+            - 2: c'est une pomme
+            
+        Renvoie un tuple (id_objet, booleen_de_resultat)"""
+
+
+        if self.contenu[ligne][col] == identifiant:
+            return (identifiant, True)
+        
+        else:
+            return (identifiant, False)
+
+
+
     def afficher(self):
         "Affiche la grille"
 

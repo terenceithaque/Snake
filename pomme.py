@@ -21,6 +21,10 @@ class Pomme(pygame.sprite.Sprite):
         self.ecran = ecran
 
 
+        # Identifiant de la pomme
+        self.identifiant = 2
+
+
         # Image de la pomme
         self.image = pygame.image.load(image)
         self.image = pygame.transform.scale(self.image, (20, 20))
