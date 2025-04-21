@@ -86,6 +86,9 @@ class Jeu:
             # Obtenir les touches pressées par le joueur
             self.touches = pygame.key.get_pressed()
 
+
+            print(self.serpent.positions)
+
             # Capturer tous les événements utilisateur de la fenêtre (clics de souris, touches pressées, etc.)
             for evenement in pygame.event.get():
                 # Si le joueur souhaite quitter le jeu

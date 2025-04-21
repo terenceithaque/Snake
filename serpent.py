@@ -1,6 +1,7 @@
 "serpent.py contient une classe Serpent qui représente le serpent du joueur."
 import pygame
 from membre import *
+from historique_coordonnees import *
         
 
     
@@ -16,14 +17,23 @@ class Serpent(pygame.sprite.Sprite):
             "droite": "assets/images/teteE.png"
             }
         
+        # Nombre de mouvements effectués par le serpent
+        self.n_mouvements = 0
+        
 
         # Direction dans laquelle le serpent se déplace
         self.direction = "gauche"
         self.ecran = ecran
 
+        # Historique des coordonnées des membres du serpent
+        self.historique_coords = HistoriqueCoords()
+
         self.taille = 3 # Taille du serpent (nombre de membres)
 
         self.membres = []
+        # Liste des positions de chaque membre du serpent
+        self.positions = []
+
         self.tete = Membre(self.img_tetes["gauche"], self.ecran, 364, 239)
 
         # Ajouter deux premiers noeuds au serpent
@@ -31,6 +41,9 @@ class Serpent(pygame.sprite.Sprite):
         self.noeud_2 = Membre("assets/images/noeud2.png", self.ecran, 344, 239)
 
         self.membres.extend([self.tete, self.noeud_1, self.noeud_2])
+        self.positions.extend([(364, 239), (354, 239), (344, 239)])
+        self.n_mouvements += 1
+        self.historique_coords.ajouter(self.positions, self.n_mouvements)
 
     def charger_tete(self, fichier:str) -> pygame.Surface:
         "Charge une tête du serpent depuis un fichier PNG ou JPG, renvoie la surface correspondante."
@@ -60,6 +73,9 @@ class Serpent(pygame.sprite.Sprite):
                     y  = y_depart + 20 * n
                     membre.positionner_y(y)
                     positions.append(membre.position())
+                    position_membre = membre.position()
+                    self.positions.append(position_membre)
+
 
         # Si on doit aligner les membres à l'horizontale
         elif sens == "horizontale":
@@ -122,6 +138,8 @@ class Serpent(pygame.sprite.Sprite):
             print(self.direction)
             self.tete.changer_image(self.img_tetes["haut"], tete_x, tete_y)
             self.membres.insert(0, self.tete)
+            self.n_mouvements += 1
+
             pygame.display.update()
 
         elif self.direction == "bas":
