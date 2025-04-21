@@ -4,6 +4,7 @@ import pygame
 pygame.init()
 from serpent import *
 from pomme import *
+from grille import *
 
 
 class Jeu:
@@ -24,6 +25,11 @@ class Jeu:
 
         self.serpent.ajuster_membres("verticale")
         #self.serpent.ajuster_membres("horizontale")
+
+
+        # Grille du jeu
+        self.contenu_grille = [[0 for _ in range(20)]]
+        self.grille = Grille(self.contenu_grille, 0, 700, 0,700, 4,15, self.fenetre)
 
 
         # Définir le groupe des pommes
@@ -75,7 +81,7 @@ class Jeu:
 
         # Commencer la boucle de jeu
         while execution:
-            #self.fenetre.fill((0, 0, 0))
+            self.fenetre.fill((0, 0, 0))
 
             print("Nombre de membres du serpent :", len(self.serpent.membres))
 
@@ -178,6 +184,7 @@ class Jeu:
                     self.serpent.ajuster_membres("horizontale")
 
 
+            self.grille.afficher()
             # Afficher le serpent
             self.serpent.afficher()
 
