@@ -17,6 +17,8 @@ class Grille:
 
         self.taille = taille
 
+
+
         # Surface d'affichage
         self.ecran = ecran
 
@@ -49,6 +51,19 @@ class Grille:
         
         else:
             return (identifiant, False)
+        
+
+    def cartesiennes(self, ligne=0, col=0) -> tuple:
+        """Renvoie les coordonnées cartésiennes correspondantes à la case (ligne, col) sous forme de tuple."""
+        x = ligne * self.hauteur_case
+        y = col * self.largeur_case
+        return (x, y)
+
+    def coordonnees(self, x=0, y=0) -> tuple:
+        """Renvoie les coordonnées de la case (ligne, col) à partir de coordonnées cartésiennes."""
+        ligne = y // self.hauteur_case
+        col = x // self.largeur_case
+        return (ligne, col) 
 
 
 

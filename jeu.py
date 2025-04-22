@@ -83,7 +83,7 @@ class Jeu:
         while execution:
             self.fenetre.fill((0, 0, 0))
 
-            print("Nombre de membres du serpent :", len(self.serpent.membres))
+            #print("Nombre de membres du serpent :", len(self.serpent.membres))
 
 
             
@@ -93,7 +93,7 @@ class Jeu:
             self.touches = pygame.key.get_pressed()
 
 
-            print(self.serpent.positions)
+            #print(self.serpent.positions)
 
             # Capturer tous les événements utilisateur de la fenêtre (clics de souris, touches pressées, etc.)
             for evenement in pygame.event.get():
@@ -103,7 +103,10 @@ class Jeu:
                     execution = False
 
                 if evenement.type == pygame.MOUSEMOTION:
-                    print(pygame.mouse.get_pos())
+                    x = pygame.mouse.get_pos()[0]
+                    y = pygame.mouse.get_pos()[1]
+                    print(x, ",", y)
+                    print(self.grille.coordonnees(x, y))
 
 
                 # Détecter les touches pressées ET relâchées
