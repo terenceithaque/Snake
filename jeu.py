@@ -20,16 +20,19 @@ class Jeu:
         self.fenetre = pygame.display.set_mode((hauteur_fenetre, largeur_fenetre))
         pygame.display.set_caption("Python Snake !")
 
+
+        # Grille du jeu
+        self.contenu_grille = [[0 for _ in range(20)]]
+        self.grille = Grille(self.contenu_grille, 0, 700, 0,700, 4,15, self.fenetre)
+
         # Instancier le serpent du joueur
-        self.serpent = Serpent(self.fenetre)
+        self.serpent = Serpent(self.grille,self.fenetre)
 
         self.serpent.ajuster_membres("verticale")
         #self.serpent.ajuster_membres("horizontale")
 
 
-        # Grille du jeu
-        self.contenu_grille = [[0 for _ in range(20)]]
-        self.grille = Grille(self.contenu_grille, 0, 700, 0,700, 4,15, self.fenetre)
+        
 
 
         # Définir le groupe des pommes
@@ -165,25 +168,28 @@ class Jeu:
             if self.serpent.hors_ecran():
                 print("Le serpent est hors de l'écran !")
                 # Positions x et y de la tête du serpent
-                x, y = self.serpent.tete.position()
+                x = self.grille.cartesiennes(self.serpent.tete.position())[0]
+                y = self.grille.cartesiennes(self.serpent.tete.position())[1]
+
+                print("x :", x, ",", "y:", y)
                 if x < 0:
                     x = 700
-                    self.serpent.tete.positionner_x(x)
+                    self.serpent.tete.positionner(self.grille.coordonnees(x, y))
                     self.serpent.ajuster_membres("verticale")
 
                 elif x > 700:
                     x = 0
-                    self.serpent.tete.positionner_x(x)
+                    self.serpent.tete.positionner(self.grille.coordonnees(x, y))
                     self.serpent.ajuster_membres("verticale")
 
                 if y < 0:
                     y = 700
-                    self.serpent.tete.positionner_y(y)
+                    self.serpent.tete.positionner(self.grille.coordonnees(x, y))
                     self.serpent.ajuster_membres("horizontale")
 
                 elif y > 700:
                     y = 0
-                    self.serpent.tete.positionner_y(y)
+                    self.serpent.tete.positionner(self.grille.coordonnees(x, y))
                     self.serpent.ajuster_membres("horizontale")
 
 
