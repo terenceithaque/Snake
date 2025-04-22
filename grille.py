@@ -10,6 +10,7 @@ class Grille:
         - x2: fin de l'affichage
         - y1: position y de début de l'affichage
         - y2: fin de l'affichage
+        - taille: taille de la grille
         - ecran: surface d'affichage."""
         
 
@@ -53,16 +54,25 @@ class Grille:
             return (identifiant, False)
         
 
-    def cartesiennes(self, ligne=0, col=0) -> tuple:
-        """Renvoie les coordonnées cartésiennes correspondantes à la case (ligne, col) sous forme de tuple."""
-        x = ligne * self.hauteur_case
-        y = col * self.largeur_case
+    def cartesiennes(self, ligne=0, col=0, centrer=True) -> tuple:
+        """Renvoie les coordonnées cartésiennes correspondantes à la case (ligne, col) sous forme de tuple.
+        
+        - ligne: numéro de la ligne
+        - col: numéro de la colonne
+        - centrer: booléen True par défaut. Si actif, considère que la position d'une case constitue son plein centre. Si False, la position devient la bordure de celle-ci."""
+        x = self.x1 + col * (self.largeur_case + self.marge)
+        y = self.y1 + ligne * (self.hauteur_case + self.marge)
+
+        if centrer:
+            x += self.largeur_case // 2
+            y += self.hauteur_case // 2
+            
         return (x, y)
 
     def coordonnees(self, x=0, y=0) -> tuple:
         """Renvoie les coordonnées de la case (ligne, col) à partir de coordonnées cartésiennes."""
-        ligne = y // self.hauteur_case
-        col = x // self.largeur_case
+        ligne = (y-self.y1) // (self.hauteur_case + self.marge)
+        col = (x-self.x1) // (self.largeur_case + self.marge)
         return (ligne, col) 
 
 
@@ -71,10 +81,10 @@ class Grille:
         "Affiche la grille"
 
         for i in range(self.taille):
-            for y in range(self.taille + 1):
+            for y in range(self.taille):
                 pygame.draw.line(self.ecran, (128, 128, 128), (0, y*self.hauteur_case + self.marge), (self.taille*(self.largeur_case + self.marge), (y*self.hauteur_case+self.marge)), 10)
 
 
-            for j in range(self.taille + 1):
+            for j in range(self.taille):
                 pygame.draw.line(self.ecran, (128, 128, 128), (j * (self.largeur_case + self.marge), 0), 
                              (j * (self.largeur_case + self.marge), self.taille * (self.hauteur_case + self.marge)), 10)     

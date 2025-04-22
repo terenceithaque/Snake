@@ -135,7 +135,7 @@ class Serpent(pygame.sprite.Sprite):
         self.direction = nouvelle_direction
         # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
         if self.direction == "haut":
-            print(self.direction)
+            #print(self.direction)
             self.tete.changer_image(self.img_tetes["haut"], tete_x, tete_y)
             self.membres.insert(0, self.tete)
             self.n_mouvements += 1
@@ -143,19 +143,19 @@ class Serpent(pygame.sprite.Sprite):
             pygame.display.update()
 
         elif self.direction == "bas":
-            print(self.direction)
+            #print(self.direction)
             self.tete.changer_image(self.img_tetes["bas"], tete_x, tete_y)
             self.membres.insert(0, self.tete)
             pygame.display.update()
 
         elif self.direction == "gauche":
-            print(self.direction)
+            #print(self.direction)
             self.tete.changer_image(self.img_tetes["gauche"], tete_x, tete_y)
             self.membres.insert(0, self.tete)
             pygame.display.update()
 
         elif self.direction == "droite":
-            print(self.direction)
+            #print(self.direction)
             self.tete.changer_image(self.img_tetes["droite"], tete_x, tete_y)
             self.membres.insert(0, self.tete)
             pygame.display.update()

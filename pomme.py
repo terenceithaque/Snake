@@ -2,17 +2,19 @@
 # Importations nécessaires
 import pygame
 import random
+from grille import *
 
 
 class Pomme(pygame.sprite.Sprite):
     "Une pomme consommable par le joueur"
-    def __init__(self, x1:int, y1:int, x2:int, y2:int, image:str, ecran:pygame.Surface) -> None:
+    def __init__(self, grille:Grille, ligne_min:int, col_min:int, ligne_max:int, col_max:int, image:str, ecran:pygame.Surface) -> None:
         """Constructeur de la pomme apparaissant à des coordonnées aléatoires.
         
-        - x1: Coordonnée x minimale de la pomme dans l'intervalle de tirage
-        - y1: Coordonnée y minimale de la pomme dans l'intervalle de tirage
-        - x2: Coordonnée x maximale de la pomme dans l'intervalle de tirage
-        - y2: Coordonnée y maximale de la pomme dans l'intervalle de tirage
+        - grille: grille du jeu où afficher la pomme
+        - ligne_min: Coordonnée ligne minimale de la pomme dans l'intervalle de tirage
+        - col_min: Coordonnée col minimale de la pomme dans l'intervalle de tirage
+        - ligne_max: Coordonnée ligne maximale de la pomme dans l'intervalle de tirage
+        - col_max: Coordonnée col maximale de la pomme dans l'intervalle de tirage
         - image: chemin du fichier image représentant la pomme
         - ecran: surface d'affichage de la pomme."""
 
@@ -25,6 +27,10 @@ class Pomme(pygame.sprite.Sprite):
         self.identifiant = 2
 
 
+        # Grille du jeu
+        self.grille = grille
+
+
         # Image de la pomme
         self.image = pygame.image.load(image)
         self.image = pygame.transform.scale(self.image, (20, 20))
@@ -32,8 +38,14 @@ class Pomme(pygame.sprite.Sprite):
 
 
         # Tirage au hasard des coordonnées de la pomme
-        self.rect.x = random.randint(x1, x2)
-        self.rect.y = random.randint(y1, y2)
+        self.ligne = random.randint(ligne_min, ligne_max)
+        self.col = random.randint(col_min, col_max)
+        # Coordonnées cartésiennes de la pomme
+        self.coords_cartesiennes = self.grille.cartesiennes(self.ligne, self.col, centrer=True)
+        self.rect.x = self.coords_cartesiennes[0]
+        self.rect.y = self.coords_cartesiennes[1]
+
+        print(f"Pomme placée en {(self.rect.x, self.rect.y)}, soit {self.grille.coordonnees(self.rect.x, self.rect.y)} dans la grille")
 
 
     def afficher(self) -> None:

@@ -28,14 +28,14 @@ class Jeu:
 
 
         # Grille du jeu
-        self.contenu_grille = [[0 for _ in range(20)]]
+        self.contenu_grille = [[0 for _ in range(20)] for _ in range(5)]
         self.grille = Grille(self.contenu_grille, 0, 700, 0,700, 4,15, self.fenetre)
 
 
         # Définir le groupe des pommes
         self.pommes = pygame.sprite.Group()
         # Ajouter une première pomme au groupe
-        self.pommes.add(Pomme(0, 0, 700, 700, "assets/images/pomme.png", self.fenetre))
+        self.pommes.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre))
 
 
         # Messages affichés sur l'état de la pause
