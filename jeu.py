@@ -89,7 +89,7 @@ class Jeu:
             #print("Nombre de membres du serpent :", len(self.serpent.membres))
 
 
-            
+            print("tete.position() =", self.serpent.tete.position())
             
 
             # Obtenir les touches pressées par le joueur
@@ -168,28 +168,31 @@ class Jeu:
             if self.serpent.hors_ecran():
                 print("Le serpent est hors de l'écran !")
                 # Positions x et y de la tête du serpent
-                x = self.grille.cartesiennes(self.serpent.tete.position())[0]
-                y = self.grille.cartesiennes(self.serpent.tete.position())[1]
+                x, y = self.grille.cartesiennes(self.serpent.tete.ligne, self.serpent.tete.col)
 
                 print("x :", x, ",", "y:", y)
                 if x < 0:
                     x = 700
-                    self.serpent.tete.positionner(self.grille.coordonnees(x, y))
+                    position = self.grille.coordonnees(x, y)
+                    self.serpent.tete.positionner(position[0], position[1])
                     self.serpent.ajuster_membres("verticale")
 
                 elif x > 700:
                     x = 0
-                    self.serpent.tete.positionner(self.grille.coordonnees(x, y))
+                    position = self.grille.coordonnees(x, y)
+                    self.serpent.tete.positionner(position[0], position[1])
                     self.serpent.ajuster_membres("verticale")
 
                 if y < 0:
                     y = 700
-                    self.serpent.tete.positionner(self.grille.coordonnees(x, y))
+                    position = self.grille.coordonnees(x, y)
+                    self.serpent.tete.positionner(position[0], position[1])
                     self.serpent.ajuster_membres("horizontale")
 
                 elif y > 700:
                     y = 0
-                    self.serpent.tete.positionner(self.grille.coordonnees(x, y))
+                    position = self.grille.coordonnees(x, y)
+                    self.serpent.tete.positionner(position[0], position[1])
                     self.serpent.ajuster_membres("horizontale")
 
 

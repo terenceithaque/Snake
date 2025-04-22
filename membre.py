@@ -53,7 +53,11 @@ class Membre(pygame.sprite.Sprite):
 
     def positionner(self, ligne=0, col=0) -> tuple:
         """Positionne le membre aux coordonnées (ligne, col)."""
-        self.rect.x, self.rect.y = self.grille.cartesiennes(ligne, col)
+        x, y = self.grille.cartesiennes(ligne, col)
+        print(x)
+        print(type(x), type(y))
+        self.rect.x = x
+        self.rect.y =y
         return (self.rect.x, self.rect.y)
 
     
