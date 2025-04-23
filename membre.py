@@ -22,7 +22,9 @@ class Membre(pygame.sprite.Sprite):
         self.grille = grille
 
         # Charger l'image du membre
-        self.image = pygame.image.load(image)
+
+        self.chemin_image = image
+        self.image = pygame.image.load(self.chemin_image)
         self.rect = self.image.get_rect()
 
 
@@ -40,7 +42,8 @@ class Membre(pygame.sprite.Sprite):
 
     def changer_image(self, fichier:str, x:int, y:int) -> None:
         "Change l'image actuelle du membre pour le contenu du fichier image indiqué"
-        self.image = pygame.image.load(fichier)
+        self.chemin_image = fichier
+        self.image = pygame.image.load(self.chemin_image)
         self.rect = self.image.get_rect()
 
         # Position du membre sur l'écran

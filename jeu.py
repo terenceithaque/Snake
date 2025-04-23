@@ -167,6 +167,7 @@ class Jeu:
 
             if self.serpent.hors_ecran():
                 self.serpent.tete = self.serpent.obtenir_tete()
+                print(self.serpent.tete.chemin_image)
                 print("Le serpent est hors de l'écran !")
                 # Positions x et y de la tête du serpent
                 x, y = self.serpent.tete.position()
