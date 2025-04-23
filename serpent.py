@@ -2,12 +2,13 @@
 import pygame
 from membre import *
 from historique_coordonnees import *
+from grille import *
         
 
     
 class Serpent(pygame.sprite.Sprite):
     "Serpent du joueur"
-    def __init__(self, ecran:pygame.Surface):
+    def __init__(self, grille:Grille, ecran:pygame.Surface):
         "Constructeur"
         # Différentes images pour la tête du serpent selon sa direction actuelle
         self.img_tetes = {
@@ -19,6 +20,10 @@ class Serpent(pygame.sprite.Sprite):
         
         # Nombre de mouvements effectués par le serpent
         self.n_mouvements = 0
+
+
+        # Grille du jeu
+        self.grille = grille
         
 
         # Direction dans laquelle le serpent se déplace
@@ -34,16 +39,11 @@ class Serpent(pygame.sprite.Sprite):
         # Liste des positions de chaque membre du serpent
         self.positions = []
 
-        self.tete = Membre(self.img_tetes["gauche"], self.ecran, 364, 239)
 
-        # Ajouter deux premiers noeuds au serpent
-        self.noeud_1 = Membre("assets/images/noeud1.png", self.ecran, 354, 239)
-        self.noeud_2 = Membre("assets/images/noeud2.png", self.ecran, 344, 239)
 
-        self.membres.extend([self.tete, self.noeud_1, self.noeud_2])
-        self.positions.extend([(364, 239), (354, 239), (344, 239)])
-        self.n_mouvements += 1
-        self.historique_coords.ajouter(self.positions, self.n_mouvements)
+        self.tete = self.ajouter_membre(self.grille, self.ecran, self.img_tetes["gauche"], 7, 7)
+        self.noeud_1 = self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , 7, 8)
+        self.noeud_2 = self.ajouter_membre(self.grille, self.ecran, "assets/images/noeud2.png", 7, 9)
 
     def charger_tete(self, fichier:str) -> pygame.Surface:
         "Charge une tête du serpent depuis un fichier PNG ou JPG, renvoie la surface correspondante."
@@ -60,32 +60,30 @@ class Serpent(pygame.sprite.Sprite):
         """"Ajuste (aligne) les membres du serpent et renvoie la liste des positions actualisée.
         sens: direction de l'alignement (verticale ou horizontale)."""
         # Le x et le y de départ sont ceux de la tête
-        x_depart = self.tete.rect.x
-        y_depart = self.tete.rect.y
+        ligne_depart, col_depart = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)
+
 
         positions = []
 
         # Si on doit aligner les membres à la verticale
-        if sens == "verticale":
-            for membre in self.membres:
-                # Positionner le membre actuel à la verticale
-                for n in range(1, self.taille + 1):
-                    y  = y_depart + 20 * n
-                    membre.positionner_y(y)
-                    positions.append(membre.position())
-                    position_membre = membre.position()
-                    self.positions.append(position_membre)
+        
+        for n, membre in enumerate(self.membres, start=1):
+            if sens == "verticale":
+                ligne = ligne_depart + n
+                col = col_depart
 
 
-        # Si on doit aligner les membres à l'horizontale
-        elif sens == "horizontale":
-            for membre in self.membres:
-                # Positionner le membre actuel à l'horizontale
-                for n in range(1, self.taille + 1):
-                    x = x_depart + 20 * n
-                    membre.positionner_x(x)
-                    positions.append(membre.position())
+            # Si on doit aligner les membres à l'horizontale
+            elif sens == "horizontale":
+                ligne = ligne_depart
+                col = col_depart + 1
 
+            else:
+                ligne_depart = ligne_depart
+                col = col_depart    
+
+        membre.positionner(ligne, col)
+        positions.append((ligne, col))
         return positions
 
 
@@ -99,8 +97,8 @@ class Serpent(pygame.sprite.Sprite):
 
 
     
-    def ajouter_noeuds(self, taille_max:int) -> list:
-        """Ajoute de nouveaux noeuds au serpent jusqu'à atteindre la taille taille_max. Retourne la liste des surfaces correspondantes à ces nouveaux noeuds."""
+    """def ajouter_noeuds(self, taille_max:int) -> list:
+        "Ajoute de nouveaux noeuds au serpent jusqu'à atteindre la taille taille_max. Retourne la liste des surfaces correspondantes à ces nouveaux noeuds."
 
         # Assertions
         assert (type(taille_max).__name__ == "int"), "taille_max doit être un nombre entier"
@@ -121,7 +119,26 @@ class Serpent(pygame.sprite.Sprite):
         # Mettre à jour la taille du serpent
         self.taille = taille_max
 
-        return self.noeuds_ajoutes
+        return self.noeuds_ajoutes"""
+    
+
+    def ajouter_membre(self, grille:Grille, ecran:pygame.Surface, image:str, ligne=0, col=0) -> Membre:
+        """Ajoute un membre au serpent.
+        
+        Les propriétés acceptées sont:
+        
+            - grille: grille du jeu où afficher le membre
+            - ecran: surface d'affichage du membre
+            - image: fichier image du membre
+            - ligne: ligne de position du membre
+            - col : colonnne de position du membre.
+            
+            Les coordonnées ligne et col sont automatiquement converties en coordonnées cartésiennes. La liste des membres est automatiquement mise à jour. Renvoie un objet Membre"""
+        
+        nouveau_membre = Membre(grille, image, ecran, ligne, col)
+        self.membres.append(nouveau_membre)
+
+        return nouveau_membre
     
 
     def changer_direction(self, nouvelle_direction:str) -> str:
@@ -166,14 +183,20 @@ class Serpent(pygame.sprite.Sprite):
 
     def deplacer_haut(self) -> None:
         "Déplace le serpent vers le haut"
-        # Positions x et y actuelles de la tête
-        tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
-        self.tete.positionner_y(tete_y - 15)
-
 
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
+
+
+        # Positions x et y actuelles de la tête
+        ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
+        col_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
+        self.tete.positionner(ligne_tete-1, col_tete)
+
+
+
+
 
         
 
@@ -182,8 +205,7 @@ class Serpent(pygame.sprite.Sprite):
             # Position précédente du membre
             pos_prec = self.positions_prec[i-1]
             # Repositionner le membre
-            self.membres[i].positionner_x(pos_prec[0])
-            self.membres[i].positionner_y(pos_prec[1])
+            self.membres[i].positionner(pos_prec[0], pos_prec[1])
 
 
         # Supprimer les anciens membres, désormais inutiles
@@ -194,36 +216,43 @@ class Serpent(pygame.sprite.Sprite):
     def deplacer_bas(self) -> None:
         "Déplace le serpent vers le bas"
         # Positions x et y actuelles de la tête
-        tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
-        self.tete.positionner_y(tete_y + 15)
-
 
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
+
+
+        ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
+        col_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
+        self.tete.positionner(ligne_tete+1, col_tete)
+
 
         # Faire suivre les segments
         for i in range(1, len(self.membres)):
             # Position précédente du membre
             pos_prec = self.positions_prec[i-1]
             # Repositionner le membre
-            self.membres[i].positionner_x(pos_prec[0])
-            self.membres[i].positionner_y(pos_prec[1])
-
+            self.membres[i].positionner(pos_prec[0], pos_prec[1])
         """ while len(self.membres) > self.taille:
             self.membres.pop() """
 
 
     def deplacer_gauche(self) -> None:
         "Déplace le serpent vers la gauche"
-        # Positions x et y actuelles de la tête
-        tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
-        self.tete.positionner_x(tete_x - 15)
-
 
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
+
+
+        # Positions x et y actuelles de la tête
+        ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
+        col_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
+        self.tete.positionner(ligne_tete, col_tete-1)
+
+
+
+        
 
 
         # Faire suivre les segments
@@ -231,8 +260,7 @@ class Serpent(pygame.sprite.Sprite):
             # Position précédente du membre
             pos_prec = self.positions_prec[i-1]
             # Repositionner le membre
-            self.membres[i].positionner_x(pos_prec[0])
-            self.membres[i].positionner_y(pos_prec[1])
+            self.membres[i].positionner(pos_prec[0], pos_prec[1])
 
 
         # Supprimer les anciens membres, désormais inutiles
@@ -242,23 +270,21 @@ class Serpent(pygame.sprite.Sprite):
 
     def deplacer_droite(self) -> None:
         "Déplace le serpent vers la droite"
-         # Positions x et y actuelles de la tête
-        tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
-        self.tete.positionner_x(tete_x + 15)
-
-
-
-        # Position précédente de chaque membre du serpent
+         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
+
+
+        # Positions x et y actuelles de la tête
+        ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
+        col_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
+        self.tete.positionner(ligne_tete, col_tete+1)
 
         # Faire suivre les segments
         for i in range(1, len(self.membres)):
             # Position précédente du membre
             pos_prec = self.positions_prec[i-1]
             # Repositionner le membre
-            self.membres[i].positionner_x(pos_prec[0])
-            self.membres[i].positionner_y(pos_prec[1])
-
+            self.membres[i].positionner(pos_prec[0], pos_prec[1])
 
         # Supprimer les anciens membres, désormais inutiles
 

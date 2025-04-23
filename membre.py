@@ -1,21 +1,25 @@
 "membre.py contient une classe Membre représentant un membre du coprs du serpent indépendant des autres."
 import pygame
+from grille import *
 
 
 class Membre(pygame.sprite.Sprite):
     "Un membre du serpent"
-    def __init__(self, image:str, ecran:pygame.Surface, x:int, y:int) -> None:
+    def __init__(self, grille:Grille, image:str, ecran:pygame.Surface, ligne:int, col:int) -> None:
         """Constructeur du membre.
         
         - image : chemin du fichier image représentant le membre
         - ecran : surface d'affichage du membre
-        - x: entier, position x de départ du membre
-        - y : entier, position y de départ du membre."""
+        - ligne: entier, position ligne de départ du membre
+        - col : entier, position col de départ du membre."""
 
 
         super().__init__()
         # Surface d'affichage du membre
         self.ecran = ecran
+
+        # Grille du jeu
+        self.grille = grille
 
         # Charger l'image du membre
         self.image = pygame.image.load(image)
@@ -25,9 +29,13 @@ class Membre(pygame.sprite.Sprite):
         # Identifiant du membre dans la grille de jeu
         self.identifiant = 1
 
-        # Position du membre sur l'écran
-        self.rect.x = x
-        self.rect.y = y
+        # Position du membre dans la grille
+        self.ligne = ligne
+        self.col = col
+        # Position du membre en pixels
+        self.coords_cartesiennes = self.grille.cartesiennes(self.ligne, self.col, centrer=True)
+        self.rect.x = self.coords_cartesiennes[0]
+        self.rect.y = self.coords_cartesiennes[1]
 
 
     def changer_image(self, fichier:str, x:int, y:int) -> None:
@@ -40,15 +48,12 @@ class Membre(pygame.sprite.Sprite):
         self.rect.y = y    
 
 
-    def positionner_x(self, x=0) -> int:
-        "Change la position x du membre pour la valeur d'absisce spécifiée, 0 par défaut."
-        self.rect.x = x
+    def positionner(self, ligne=0, col=0) -> int:
+        "Change les positions (ligne, col) du membre pour la valeur d'absisce spécifiée, 0 par défaut."
+        self.coords_cartesiennes = self.grille.cartesiennes(ligne, col, centrer=True)
+        self.rect.x = self.coords_cartesiennes[0]
+        self.rect.y = self.coords_cartesiennes[1]
         return self.rect.x
-
-    def positionner_y(self, y=0) -> int:
-        "Change la position y du membre pour la valeur d'ordonnée spécifiée, 0 par défaut."
-        self.rect.y = y
-        return self.rect.y
     
     def position(self) -> tuple:
         "Renvoie la position actuelle du membre sous forme de tuple."
