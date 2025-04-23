@@ -108,8 +108,8 @@ class Jeu:
                 if evenement.type == pygame.MOUSEMOTION:
                     x = pygame.mouse.get_pos()[0]
                     y = pygame.mouse.get_pos()[1]
-                    print(x, ",", y)
-                    print(self.grille.coordonnees(x, y))
+                    #print(x, ",", y)
+                    #print(self.grille.coordonnees(x, y))
 
 
                 # Détecter les touches pressées ET relâchées
@@ -166,9 +166,12 @@ class Jeu:
 
 
             if self.serpent.hors_ecran():
+                self.serpent.tete = self.serpent.obtenir_tete()
                 print("Le serpent est hors de l'écran !")
                 # Positions x et y de la tête du serpent
-                ligne, col = self.serpent.tete.position()
+                x, y = self.serpent.tete.position()
+                ligne, col = self.grille.coordonnees(x, y)
+                print("Position de la tête du serpent :", (x, y), f" soit {(ligne, col)}")
                 if ligne < 0:
                     ligne = 20
                     self.serpent.tete.positionner(ligne, col)
@@ -183,6 +186,7 @@ class Jeu:
                     col = 5
                     self.serpent.tete.positionner(ligne, col)
                     self.serpent.ajuster_membres("horizontale")
+                    self.serpent.changer_direction("haut")
 
                 elif col > 5:
                     col = 0

@@ -59,6 +59,8 @@ class Serpent(pygame.sprite.Sprite):
     def ajuster_membres(self, sens="verticale") -> list:
         """"Ajuste (aligne) les membres du serpent et renvoie la liste des positions actualisée.
         sens: direction de l'alignement (verticale ou horizontale)."""
+
+        self.tete = self.obtenir_tete()
         # Le x et le y de départ sont ceux de la tête
         ligne_depart, col_depart = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)
 
@@ -76,7 +78,7 @@ class Serpent(pygame.sprite.Sprite):
             # Si on doit aligner les membres à l'horizontale
             elif sens == "horizontale":
                 ligne = ligne_depart
-                col = col_depart + 1
+                col = col_depart + n
 
             else:
                 ligne_depart = ligne_depart
@@ -85,6 +87,11 @@ class Serpent(pygame.sprite.Sprite):
         membre.positionner(ligne, col)
         positions.append((ligne, col))
         return positions
+    
+
+    def obtenir_tete(self)-> Membre:
+        "Renvoie la tête du serpent"
+        return self.membres[0]
 
 
 
@@ -143,6 +150,7 @@ class Serpent(pygame.sprite.Sprite):
 
     def changer_direction(self, nouvelle_direction:str) -> str:
         """Change la direction actuelle du serpent et renvoie cette dernière."""
+        self.tete = self.obtenir_tete()
         tete_x, tete_y = self.tete.rect.x, self.tete.rect.y
         # Tuple des direction autorisées
         directions_autorisees = ("haut", "bas", "gauche", "droite")
@@ -185,6 +193,8 @@ class Serpent(pygame.sprite.Sprite):
         "Déplace le serpent vers le haut"
 
 
+        self.tete = self.obtenir_tete()
+
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
 
@@ -217,6 +227,8 @@ class Serpent(pygame.sprite.Sprite):
         "Déplace le serpent vers le bas"
         # Positions x et y actuelles de la tête
 
+        self.tete = self.obtenir_tete()
+
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
@@ -240,6 +252,8 @@ class Serpent(pygame.sprite.Sprite):
     def deplacer_gauche(self) -> None:
         "Déplace le serpent vers la gauche"
 
+
+        self.tete = self.obtenir_tete()
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
@@ -270,7 +284,9 @@ class Serpent(pygame.sprite.Sprite):
 
     def deplacer_droite(self) -> None:
         "Déplace le serpent vers la droite"
-         # Position précédente de chaque membre du serpent
+
+        self.tete = self.obtenir_tete()
+        # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
 
 

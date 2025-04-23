@@ -63,16 +63,21 @@ class Grille:
         x = self.x1 + col * (self.largeur_case + self.marge)
         y = self.y1 + ligne * (self.hauteur_case + self.marge)
 
+        
+
         if centrer:
             x += self.largeur_case // 2
             y += self.hauteur_case // 2
-            
+        
+        print(f"[DEBUG cartesiennes] ligne={ligne}, col={col}, → x={x}, y={y}")
         return (x, y)
 
     def coordonnees(self, x=0, y=0) -> tuple:
         """Renvoie les coordonnées de la case (ligne, col) à partir de coordonnées cartésiennes."""
-        ligne = (y-self.y1) // (self.hauteur_case + self.marge)
-        col = (x-self.x1) // (self.largeur_case + self.marge)
+        ligne = y // self.hauteur_case
+        col = x // self.largeur_case
+        
+        
         return (ligne, col) 
 
 
