@@ -52,7 +52,7 @@ class Jeu:
 
         # Evénements personnalisés
         self.mouvement_serpent = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.mouvement_serpent, 100)
+        pygame.time.set_timer(self.mouvement_serpent, 500)
 
 
 
@@ -167,18 +167,18 @@ class Jeu:
 
             if self.serpent.hors_ecran():
                 self.serpent.tete = self.serpent.obtenir_tete()
-                print(self.serpent.tete.chemin_image)
+                #print(self.serpent.tete.chemin_image)
                 print("Le serpent est hors de l'écran !")
                 # Positions x et y de la tête du serpent
                 x, y = self.serpent.tete.position()
                 ligne, col = self.grille.coordonnees(x, y)
-                print("Position de la tête du serpent :", (x, y), f" soit {(ligne, col)}")
+                #print("Position de la tête du serpent :", (x, y), f" soit {(ligne, col)}")
                 if ligne < 0:
-                    ligne = 20
+                    ligne = 5
                     self.serpent.tete.positionner(ligne, col)
                     self.serpent.ajuster_membres("verticale")
 
-                elif ligne > 20:
+                elif ligne > 5:
                     ligne = 0
                     self.serpent.tete.positionner(ligne, col)
                     self.serpent.ajuster_membres("verticale")
@@ -187,9 +187,9 @@ class Jeu:
                     col = 5
                     self.serpent.tete.positionner(ligne, col)
                     self.serpent.ajuster_membres("horizontale")
-                    self.serpent.changer_direction("haut")
+                    #self.serpent.changer_direction("haut")
 
-                elif col > 5:
+                elif col > 20:
                     col = 0
                     self.serpent.tete.positionner(ligne, col)
                     self.serpent.ajuster_membres("horizontale")
