@@ -59,8 +59,8 @@ class Membre(pygame.sprite.Sprite):
         return self.rect.x
     
     def position(self) -> tuple:
-        "Renvoie la position actuelle du membre sous forme de tuple."
-        return (self.rect.x, self.rect.y)
+        "Renvoie la position actuelle du membre dans la grille sous forme de tuple."
+        return self.grille.coordonnees(self.rect.x, self.rect.y)
 
     def afficher(self):
         "Affiche le membre à l'écran."
