@@ -287,6 +287,36 @@ class Serpent(pygame.sprite.Sprite):
         # Supprimer les anciens membres, désormais inutiles
         """while len(self.membres) > self.taille:
             self.membres.pop() """
+        
+
+    def repositionner(self, ligne=0, col=0, cote="gauche", sens="verticale") -> None:
+        """Repositionne le serpent aux coordonnées (ligne, col) pour la tête, repositionne les autres membres puis applique un ajustement des membres dans le sens voulu.
+        Le paramètre cote indique de quel côté repositionner les membres restants par rapport à la tête."""
+        # Positionner la tête aux coordonnées (ligne, col)
+        self.tete = self.obtenir_tete()
+        self.tete.positionner(ligne, col)
+
+
+        # Si on doit positionner les membres à gauche de la tête
+        if cote == "gauche":
+            pass
+
+
+        # Si on doit positionner les membres en haut de la tête
+        elif cote == "haut":
+            pass
+        
+        # Si on doit positionner les membres en bas de la tête
+        elif cote == "bas":
+            pass
+
+
+        # Finalement, ajuster les membres
+        self.ajuster_membres(sens)
+
+        
+
+            
 
 
     def deplacer_droite(self) -> None:

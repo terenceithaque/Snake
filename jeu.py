@@ -179,6 +179,7 @@ class Jeu:
                 #print("Position de la tête du serpent :", (x, y), f" soit {(ligne, col)}")
                 if ligne < 0:
                     ligne = 5
+                    #self.serpent.repositionner(ligne, col, "verticale")
                     self.serpent.tete.positionner(ligne, col)
                     self.serpent.ajuster_membres("verticale")
 
