@@ -21,7 +21,6 @@ class Serpent(pygame.sprite.Sprite):
         # Nombre de mouvements effectués par le serpent
         self.n_mouvements = 0
 
-
         # Grille du jeu
         self.grille = grille
         
@@ -119,9 +118,10 @@ class Serpent(pygame.sprite.Sprite):
         for i in range(self.taille, taille_max + 1):
             for n in range(len(images_noeuds)):
                 # Image du nouveau noeud actuel
-                noeud = pygame.image.load(images_noeuds[n])
+                noeud = Membre(self.grille, image, self.ecran, ligne, colonne)
                 self.noeuds_ajoutes.append(noeud)
                 self.membres.append(noeud)
+                self.positions.append(noeud.position())
 
         # Mettre à jour la taille du serpent
         self.taille = taille_max

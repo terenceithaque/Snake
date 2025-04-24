@@ -89,7 +89,7 @@ class Jeu:
             #print("Nombre de membres du serpent :", len(self.serpent.membres))
 
 
-            
+            print("tete.position() =", self.serpent.tete.position())
             
 
             # Obtenir les touches pressées par le joueur
