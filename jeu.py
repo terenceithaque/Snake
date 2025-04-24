@@ -112,37 +112,41 @@ class Jeu:
                     #print(self.grille.coordonnees(x, y))
 
 
-                # Détecter les touches pressées ET relâchées
-                if evenement.type == pygame.KEYUP:
-                    print("Touche pressée et relâchée !")
-                    # Changer la direction du serpent en fonction de la touche pressée et relâchée
+                # Si une seule touche est pressée
+                if self.touches.count(True) == 1:    
 
-                    # Haut
-                    if evenement.key == pygame.K_UP:
-                        if not self.pause:
-                            self.serpent.changer_direction("haut")
 
-                    # Bas
-                    elif evenement.key == pygame.K_DOWN:
-                        # Changer la direction du serpent
-                        if not self.pause:
-                            self.serpent.changer_direction("bas")
+                    # Détecter les touches pressées ET relâchées
+                    if evenement.type == pygame.KEYUP:
+                        print("Touche pressée et relâchée !")
+                        # Changer la direction du serpent en fonction de la touche pressée et relâchée
 
-                    # Gauche
-                    elif evenement.key == pygame.K_LEFT:
-                        # Changer la direction du serpent
-                        if not self.pause:
-                            self.serpent.changer_direction("gauche")
+                        # Haut
+                        if evenement.key == pygame.K_UP:
+                            if not self.pause:
+                                self.serpent.changer_direction("haut")
 
-                    # Droite
-                    elif evenement.key == pygame.K_RIGHT:
-                        # Changer la direction du serpent
-                        if not self.pause:
-                            self.serpent.changer_direction("droite")
+                        # Bas
+                        elif evenement.key == pygame.K_DOWN:
+                            # Changer la direction du serpent
+                            if not self.pause:
+                                self.serpent.changer_direction("bas")
 
-                    # Pause
-                    elif evenement.key == pygame.K_SPACE:
-                        self.pauser()    
+                        # Gauche
+                        elif evenement.key == pygame.K_LEFT:
+                            # Changer la direction du serpent
+                            if not self.pause:
+                                self.serpent.changer_direction("gauche")
+
+                        # Droite
+                        elif evenement.key == pygame.K_RIGHT:
+                            # Changer la direction du serpent
+                            if not self.pause:
+                                self.serpent.changer_direction("droite")
+
+                        # Pause
+                        elif evenement.key == pygame.K_SPACE:
+                            self.pauser()    
 
 
 

@@ -69,7 +69,7 @@ class Grille:
             x += self.largeur_case // 2
             y += self.hauteur_case // 2
         
-        print(f"[DEBUG cartesiennes] ligne={ligne}, col={col}, → x={x}, y={y}")
+        #print(f"[DEBUG cartesiennes] ligne={ligne}, col={col}, → x={x}, y={y}")
         return (x, y)
 
     def coordonnees(self, x=0, y=0) -> tuple:

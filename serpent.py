@@ -164,30 +164,30 @@ class Serpent(pygame.sprite.Sprite):
         self.direction = nouvelle_direction
         # Remplacer la tête actuelle et la mettre à jour dans la liste des membres
         if self.direction == "haut":
-            #print(self.direction)
+            print(self.direction)
             self.tete.changer_image(self.img_tetes["haut"], tete_x, tete_y)
             #self.membres.insert(0, self.tete)
             self.n_mouvements += 1
 
-            pygame.display.update()
+            #pygame.display.update()
 
         elif self.direction == "bas":
-            #print(self.direction)
+            print(self.direction)
             self.tete.changer_image(self.img_tetes["bas"], tete_x, tete_y)
             #self.membres.insert(0, self.tete)
-            pygame.display.update()
+            #pygame.display.update()
 
         elif self.direction == "gauche":
-            #print(self.direction)
+            print(self.direction)
             self.tete.changer_image(self.img_tetes["gauche"], tete_x, tete_y)
             #self.membres.insert(0, self.tete)
-            pygame.display.update()
+            #pygame.display.update()
 
         elif self.direction == "droite":
-            #print(self.direction)
+            print(self.direction)
             self.tete.changer_image(self.img_tetes["droite"], tete_x, tete_y)
             #self.membres.insert(0, self.tete)
-            pygame.display.update()
+            #pygame.display.update()
 
                 
 
@@ -201,7 +201,7 @@ class Serpent(pygame.sprite.Sprite):
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
-        print(f"Positions précédentes : {self.positions_prec}")
+        #print(f"Positions précédentes : {self.positions_prec}")
 
 
         # Positions x et y actuelles de la tête
@@ -237,7 +237,7 @@ class Serpent(pygame.sprite.Sprite):
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
-        print(f"Positions précédentes : {self.positions_prec}")
+        #print(f"Positions précédentes : {self.positions_prec}")
 
 
         ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
@@ -263,7 +263,7 @@ class Serpent(pygame.sprite.Sprite):
 
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
-        print(f"Positions précédentes : {self.positions_prec}")
+        #print(f"Positions précédentes : {self.positions_prec}")
 
 
         # Positions x et y actuelles de la tête
@@ -295,7 +295,7 @@ class Serpent(pygame.sprite.Sprite):
         self.tete = self.obtenir_tete()
         # Position précédente de chaque membre du serpent
         self.positions_prec = [membre.position() for membre in self.membres]
-        print(f"Positions précédentes : {self.positions_prec}")
+        #print(f"Positions précédentes : {self.positions_prec}")
 
 
         # Positions x et y actuelles de la tête
