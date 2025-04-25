@@ -40,9 +40,14 @@ class Serpent(pygame.sprite.Sprite):
 
 
 
+
         self.tete = self.ajouter_membre(self.grille, self.ecran, self.img_tetes["gauche"], 7, 7, True)
         self.noeud_1 = self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , 7, 8)
         self.noeud_2 = self.ajouter_membre(self.grille, self.ecran, "assets/images/noeud2.png", 7, 9)
+
+        # Points accumulés par le serpent
+        self.points = 0
+        self.max_points = 0
 
     def charger_tete(self, fichier:str) -> pygame.Surface:
         "Charge une tête du serpent depuis un fichier PNG ou JPG, renvoie la surface correspondante."
@@ -53,6 +58,16 @@ class Serpent(pygame.sprite.Sprite):
 
         # Charger le fichier image de la tête
         return pygame.image.load(fichier)
+    
+
+    def augmenter_points(self, montant:int) -> int:
+        """Met à jour le score et le renvoie."""
+        self.points += montant
+        # Actualiser le meilleur score
+        if self.points > self.max_points:
+            self.max_points = self.points
+
+        return self.points    
     
 
     def ajuster_membres(self, sens="verticale") -> list:
@@ -208,6 +223,7 @@ class Serpent(pygame.sprite.Sprite):
         ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
         col_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
         self.tete.positionner(ligne_tete-1, col_tete)
+        print("Ligne haut :", ligne_tete-1, "Col haut :", col_tete)
 
 
 
@@ -242,6 +258,7 @@ class Serpent(pygame.sprite.Sprite):
 
         ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
         col_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
+        print("Ligne bas :", ligne_tete-1, "Col bas :", col_tete)
         self.tete.positionner(ligne_tete+1, col_tete)
 
 
@@ -269,6 +286,7 @@ class Serpent(pygame.sprite.Sprite):
         # Positions x et y actuelles de la tête
         ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
         col_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
+        print("Ligne gauche :", ligne_tete, "Col gauche :", col_tete-1)
         self.tete.positionner(ligne_tete, col_tete-1)
 
 
@@ -331,6 +349,7 @@ class Serpent(pygame.sprite.Sprite):
         # Positions x et y actuelles de la tête
         ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
         col_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
+        print("Ligne droite :", ligne_tete, "Col droite :", col_tete+1)
         self.tete.positionner(ligne_tete, col_tete+1)
 
         # Faire suivre les segments

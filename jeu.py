@@ -89,7 +89,7 @@ class Jeu:
             #print("Nombre de membres du serpent :", len(self.serpent.membres))
 
 
-            print("tete.position() =", self.serpent.tete.position())
+            #print("tete.position() =", self.serpent.tete.position())
             
 
             # Obtenir les touches pressées par le joueur
@@ -137,6 +137,7 @@ class Jeu:
                             # Changer la direction du serpent
                             if not self.pause:
                                 self.serpent.changer_direction("gauche")
+                                
 
                         # Droite
                         elif evenement.key == pygame.K_RIGHT:
