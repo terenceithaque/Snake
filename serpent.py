@@ -1,7 +1,6 @@
 "serpent.py contient une classe Serpent qui représente le serpent du joueur."
 import pygame
 from membre import *
-from historique_coordonnees import *
 from grille import *
         
 
@@ -29,8 +28,6 @@ class Serpent(pygame.sprite.Sprite):
         self.direction = "gauche"
         self.ecran = ecran
 
-        # Historique des coordonnées des membres du serpent
-        self.historique_coords = HistoriqueCoords()
 
         self.taille = 3 # Taille du serpent (nombre de membres)
 
@@ -98,8 +95,8 @@ class Serpent(pygame.sprite.Sprite):
                 ligne_depart = ligne_depart
                 col = col_depart    
 
-        membre.positionner(ligne, col)
-        positions.append((ligne, col))
+            membre.positionner(ligne, col)
+            positions.append((ligne, col))
         return positions
     
 

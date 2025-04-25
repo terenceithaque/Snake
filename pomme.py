@@ -40,6 +40,11 @@ class Pomme(pygame.sprite.Sprite):
         # Tirage au hasard des coordonnées de la pomme
         self.ligne = random.randint(ligne_min, ligne_max)
         self.col = random.randint(col_min, col_max)
+
+        # Placer la pomme dans la grille
+        #self.grille.placer_objet(self.identifiant, self.ligne, self.col)
+
+
         # Coordonnées cartésiennes de la pomme
         self.coords_cartesiennes = self.grille.cartesiennes(self.ligne, self.col, centrer=True)
         self.rect.x = self.coords_cartesiennes[0]

@@ -37,6 +37,12 @@ class Grille:
         self.x2 = x2
         self.y2 = y2
 
+
+    def placer_objet(self, identifiant:int, ligne=0, col=0) -> None:
+        "Place l'objet avec l'identifiant donné aux coordonnées (ligne, col) données. Le contenu précédent est écrasé."
+        self.contenu[ligne][col] = identifiant
+
+    
     def objet_dans_case(self, ligne=0, col=0, identifiant=1) -> tuple:
         """Vérifie l'objet dans la case spécifiée à l'aide de son identifiant.
         

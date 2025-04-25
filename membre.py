@@ -27,13 +27,21 @@ class Membre(pygame.sprite.Sprite):
         self.image = pygame.image.load(self.chemin_image)
         self.rect = self.image.get_rect()
 
-
-        # Identifiant du membre dans la grille de jeu
+        # Identifiant du membre dans la grille
         self.identifiant = 1
+
+
+        
+
 
         # Position du membre dans la grille
         self.ligne = ligne
         self.col = col
+
+        # Placer le membre dans la grille
+        #self.grille.placer_objet(self.identifiant, self.ligne, self.col)
+
+
         # Position du membre en pixels
         self.coords_cartesiennes = self.grille.cartesiennes(self.ligne, self.col, centrer=True)
         self.rect.x = self.coords_cartesiennes[0]
