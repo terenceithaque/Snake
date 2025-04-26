@@ -217,10 +217,14 @@ class Jeu:
                 # Si le serpent est en train de manger une pomme
                 if self.serpent.verifier_mange_pomme(pomme):
                     # Détruire la pomme et créer une pomme normale ou une piégée
+                    self.serpent.augmenter_points(15)
                     pomme.kill()
                     proba_piegee = random.randint(0, 100)
                     if proba_piegee >= 67:
                         self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))
+
+                    else:
+                        self.pommes.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre))
                 else:    
                     # Afficher les pommes
                     pomme.afficher()
@@ -232,6 +236,8 @@ class Jeu:
                 pomme.afficher()       
 
 
+
+            self.serpent.afficher_points()
             self.afficher_message_pause()
 
             
