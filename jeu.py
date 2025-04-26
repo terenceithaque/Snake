@@ -5,6 +5,7 @@ pygame.init()
 from serpent import *
 from pomme import *
 from grille import *
+from tkinter import messagebox
 
 
 class Jeu:
@@ -90,7 +91,6 @@ class Jeu:
             self.fenetre.fill((0, 0, 0))
 
 
-            print("Serpent mange une pomme :", self.serpent.mange_pomme())
 
             #print("Nombre de membres du serpent :", len(self.serpent.membres))
 
@@ -212,12 +212,23 @@ class Jeu:
             self.serpent.afficher()
 
 
-            # Afficher les pommes
+            
             for pomme in self.pommes:
-                pomme.afficher()
+                # Si le serpent est en train de manger une pomme
+                if self.serpent.verifier_mange_pomme(pomme):
+                    # Détruire la pomme et créer une pomme normale ou une piégée
+                    pomme.kill()
+                    proba_piegee = random.randint(0, 100)
+                    if proba_piegee >= 67:
+                        self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))
+                else:    
+                    # Afficher les pommes
+                    pomme.afficher()
 
             # Afficher les pommes piégées
             for pomme in self.pommes_piegees:
+                if self.serpent.verifier_mange_pomme(pomme):
+                    messagebox.showinfo("Pomme piégée !", "vous avez mangé une pomme piégée !")
                 pomme.afficher()       
 
 
