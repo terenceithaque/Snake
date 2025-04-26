@@ -78,7 +78,16 @@ class Jeu:
         print("Etat de la pause :", self.pause)
         
         
-        return self.pause    
+        return self.pause
+
+    def game_over(self, message="Perdu !") -> None:
+        """Affiche un message de game over.
+        
+        message: texte du message"""
+
+        messagebox.showwarning("Game over !", message)
+
+
 
 
     def executer(self):
@@ -220,7 +229,7 @@ class Jeu:
                     self.serpent.augmenter_points(15)
                     pomme.kill()
                     proba_piegee = random.randint(0, 100)
-                    if proba_piegee >= 67:
+                    if proba_piegee >= 90:
                         self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))
 
                     else:
@@ -231,8 +240,12 @@ class Jeu:
 
             # Afficher les pommes piégées
             for pomme in self.pommes_piegees:
+                # Si le serpent avale une pomme piégée
                 if self.serpent.verifier_mange_pomme(pomme):
-                    messagebox.showinfo("Pomme piégée !", "vous avez mangé une pomme piégée !")
+                    # Game over
+                    self.game_over("Vous avez mangé une pomme piégée et vous êtes mort(e).")
+                    execution = False
+
                 pomme.afficher()       
 
 
