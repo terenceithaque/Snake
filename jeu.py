@@ -2,6 +2,7 @@
 # Importations nécessaires
 import pygame
 pygame.init()
+pygame.mixer.init()
 from serpent import *
 from pomme import *
 from grille import *
@@ -61,6 +62,12 @@ class Jeu:
 
 
         self.pause = False
+
+
+        # Musique du jeu
+        
+        pygame.mixer.music.load("assets/sons/Snake.mp3")
+        pygame.mixer.music.play(-1)
 
 
     def afficher_message_pause(self):
@@ -234,6 +241,9 @@ class Jeu:
 
                     else:
                         self.pommes.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre))
+
+                    # Ajouter un membre au serpent
+                    #self.serpent.ajouter_membre(self.grille)    
                 else:    
                     # Afficher les pommes
                     pomme.afficher()
