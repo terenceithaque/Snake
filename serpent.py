@@ -30,7 +30,7 @@ class Serpent(pygame.sprite.Sprite):
         self.ecran = ecran
 
 
-        self.taille = 3 # Taille du serpent (nombre de membres)
+        self.taille = 5 # Taille du serpent (nombre de membres)
 
         self.membres = []
         # Liste des positions de chaque membre du serpent
@@ -40,8 +40,9 @@ class Serpent(pygame.sprite.Sprite):
 
 
         self.tete = self.ajouter_membre(self.grille, self.ecran, self.img_tetes["gauche"], 7, 7, True)
-        self.noeud_1 = self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , 7, 8)
-        self.noeud_2 = self.ajouter_membre(self.grille, self.ecran, "assets/images/noeud2.png", 7, 9)
+        for i in range(1, self.taille):
+            self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , 7, 7+i)
+            #self.noeud_2 = self.ajouter_membre(self.grille, self.ecran, "assets/images/noeud2.png", 7, 9)
 
         # Points accumulés par le serpent
         self.points = 0
@@ -130,6 +131,10 @@ class Serpent(pygame.sprite.Sprite):
     def obtenir_tete(self)-> Membre:
         "Renvoie la tête du serpent"
         return self.membres[0]
+    
+    def obtenir_queue(self) -> Membre:
+        "Renvoie la queue du serpent"
+        return self.membres[len(self.membres) - 1]
 
 
 
@@ -188,6 +193,8 @@ class Serpent(pygame.sprite.Sprite):
         else:    
             self.membres.append(nouveau_membre)
 
+
+        self.taille += 1
         return nouveau_membre
     
 

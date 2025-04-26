@@ -43,7 +43,7 @@ class Jeu:
         self.pommes_piegees = pygame.sprite.Group()
         # Ajouter une première pomme au groupe
         self.pommes.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre))
-        self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))
+        #self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))
 
 
         # Messages affichés sur l'état de la pause
@@ -232,9 +232,40 @@ class Jeu:
             for pomme in self.pommes:
                 # Si le serpent est en train de manger une pomme
                 if self.serpent.verifier_mange_pomme(pomme):
-                    # Détruire la pomme et créer une pomme normale ou une piégée
+                    
                     self.serpent.augmenter_points(15)
+                    # Ajouter un membre au serpent
+                    queue = self.serpent.obtenir_queue()
+                    if self.serpent.direction == "haut":
+                        ligne = self.grille.coordonnees(queue.rect.x, queue.rect.y)[0] -1
+                        col = self.grille.coordonnees(queue.rect.x, queue.rect.y)[1]
+                        self.serpent.ajouter_membre(self.grille, self.fenetre, "assets/images/noeud1.png",ligne, col)
+                        print("Taille du serpent :", self.serpent.taille)
+
+
+                    elif self.serpent.direction == "bas":
+                        ligne = self.grille.coordonnees(queue.rect.x, queue.rect.y)[0] + 1
+                        col = self.grille.coordonnees(queue.rect.x, queue.rect.y)[1]
+                        self.serpent.ajouter_membre(self.grille, self.fenetre, "assets/images/noeud1.png",ligne, col)
+                        print("Taille du serpent :", self.serpent.taille)
+
+                    elif self.serpent.direction == "gauche":
+                        ligne = self.grille.coordonnees(queue.rect.x, queue.rect.y)[0]
+                        col = self.grille.coordonnees(queue.rect.x, queue.rect.y)[1] - 1
+                        self.serpent.ajouter_membre(self.grille, self.fenetre, "assets/images/noeud1.png",ligne, col)
+                        print("Taille du serpent :", self.serpent.taille)
+
+                    elif self.serpent.direction == "droite":
+                        ligne = self.grille.coordonnees(queue.rect.x, queue.rect.y)[0]
+                        col = self.grille.coordonnees(queue.rect.x, queue.rect.y)[1] + 1
+                        self.serpent.ajouter_membre(self.grille, self.fenetre, "assets/images/noeud1.png",ligne, col)
+                        print("Taille du serpent :", self.serpent.taille)        
+                    
                     pomme.kill()
+                    
+
+                    # Ajouter une pomme normale ou piégée
+                    
                     proba_piegee = random.randint(0, 100)
                     if proba_piegee >= 90:
                         self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))
@@ -252,9 +283,21 @@ class Jeu:
             for pomme in self.pommes_piegees:
                 # Si le serpent avale une pomme piégée
                 if self.serpent.verifier_mange_pomme(pomme):
-                    # Game over
-                    self.game_over("Vous avez mangé une pomme piégée et vous êtes mort(e).")
-                    execution = False
+                    # Probabilité de 50 % que le joueur meure
+                    proba_mort = random.randint(0, 100)
+                    print("Probabilité de mort :", proba_mort)
+                    if proba_mort >= 50:
+                        self.game_over("Vous avez mangé une pomme piégée et vous êtes mort(e).")
+                        execution = False
+
+                    # Si le joueur n'est pas mort, générer une pomme normale ou piégée
+                    proba_piegee = random.randint(0, 100)
+                    if proba_piegee >= 90:
+                        self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))
+
+                    else:
+                        self.pommes.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre))
+
 
                 pomme.afficher()       
 

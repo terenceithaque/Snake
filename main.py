@@ -13,7 +13,7 @@ pygame.quit()
 
 
 # Entrer dans une boucle pour demander au joueur s'il souhaite rejouer
-while True:
+while True: 
     rejouer = messagebox.askyesno("Rejouer ?", "Souhaitez-vous rejouer ?")
     # Si le joueur veut rejouer
     if rejouer:
