@@ -80,8 +80,8 @@ class Grille:
 
     def coordonnees(self, x=0, y=0) -> tuple:
         """Renvoie les coordonnées de la case (ligne, col) à partir de coordonnées cartésiennes."""
-        ligne = y // self.hauteur_case
-        col = x // self.largeur_case
+        ligne =  (y - self.y1) // (self.hauteur_case + self.marge)
+        col = (x - self.x1) // (self.largeur_case + self.marge)
         
         
         return (ligne, col) 

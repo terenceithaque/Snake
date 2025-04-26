@@ -28,7 +28,7 @@ class Jeu:
         # Instancier le serpent du joueur
         self.serpent = Serpent(self.grille, self.fenetre)
 
-        self.serpent.ajuster_membres("verticale")
+        #self.serpent.ajuster_membres("verticale")
         #self.serpent.ajuster_membres("horizontale")
 
 
