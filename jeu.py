@@ -287,7 +287,11 @@ class Jeu:
                     proba_mort = random.randint(0, 100)
                     print("Probabilité de mort :", proba_mort)
                     if proba_mort >= 50:
+                        
+                        
                         self.game_over("Vous avez mangé une pomme piégée et vous êtes mort(e).")
+                        self.serpent.tuer()
+                        pygame.time.wait(1000)
                         execution = False
 
                     # Si le joueur n'est pas mort, générer une pomme normale ou piégée
@@ -299,7 +303,17 @@ class Jeu:
                         self.pommes.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre))
 
 
-                pomme.afficher()       
+                pomme.afficher()
+
+
+            # Si la tête entre en collision avec tout autre membre du corps
+            for i in range(1, len(self.serpent.membres)):
+                if self.serpent.se_mange(self.serpent.membres[i]):
+                    
+                    self.game_over("Vous vous êtes mangé et vous êtes mort(e).")
+                    self.serpent.tuer()
+                    pygame.time.wait(1000)
+                    execution = False           
 
 
 

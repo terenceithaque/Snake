@@ -63,10 +63,25 @@ class Serpent(pygame.sprite.Sprite):
         return pygame.image.load(fichier)
     
 
+    def tuer(self):
+        """Tuer le serpent."""
+        for membre in self.membres:
+            membre.kill()
+    
+
     def verifier_mange_pomme(self, pomme:Pomme) -> bool:
         """Vérifie si le serpent est sur le point de manger une pomme"""
 
         if self.tete.rect.colliderect(pomme.rect):
+            return True
+        
+        return False
+    
+
+    def se_mange(self, membre:Membre) -> bool:
+        """Vérifie si le serpent est sur le point de se manger lui-même."""
+
+        if self.tete.rect.colliderect(membre.rect):
             return True
         
         return False
