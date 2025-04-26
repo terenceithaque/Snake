@@ -86,6 +86,9 @@ class Jeu:
         while execution:
             self.fenetre.fill((0, 0, 0))
 
+
+            print("Serpent mange une pomme :", self.serpent.mange_pomme())
+
             #print("Nombre de membres du serpent :", len(self.serpent.membres))
 
 

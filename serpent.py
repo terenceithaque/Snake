@@ -57,6 +57,40 @@ class Serpent(pygame.sprite.Sprite):
         return pygame.image.load(fichier)
     
 
+    def mange_pomme(self) -> bool:
+        """Vérifie si le serpent est sur le point de manger une pomme en fonction de l'orientation de la tête."""
+        self.tete = self.obtenir_tete()
+        # Ligne et colonne actuelle de la tête
+        ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
+        col_tete = ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
+
+        if self.direction == "haut":
+            # Ligne à vérifier
+            ligne = ligne_tete - 1
+            col = col_tete
+
+        elif self.direction == "bas":
+            # Ligne à vérifier
+            ligne = ligne_tete + 1
+            col = col_tete
+
+
+        elif self.direction == "gauche":
+            # Colonne à vérifier
+            ligne = ligne_tete
+            col = col_tete -1
+
+        elif self.direction == "droite":
+            # Colonne à vérifier
+            ligne = ligne_tete
+            col = col_tete + 1
+
+        return self.grille.objet_dans_case(ligne, col, 2)[1] == True    
+
+
+
+    
+
     def augmenter_points(self, montant:int) -> int:
         """Met à jour le score et le renvoie."""
         self.points += montant
