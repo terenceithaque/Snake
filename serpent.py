@@ -62,7 +62,7 @@ class Serpent(pygame.sprite.Sprite):
         self.tete = self.obtenir_tete()
         # Ligne et colonne actuelle de la tête
         ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[0]
-        col_tete = ligne_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
+        col_tete = self.grille.coordonnees(self.tete.rect.x, self.tete.rect.y)[1]
 
         if self.direction == "haut":
             # Ligne à vérifier
@@ -84,8 +84,7 @@ class Serpent(pygame.sprite.Sprite):
             # Colonne à vérifier
             ligne = ligne_tete
             col = col_tete + 1
-
-        return self.grille.objet_dans_case(ligne, col, 2)[1] == True    
+ 
 
 
 

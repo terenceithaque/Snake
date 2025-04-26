@@ -53,8 +53,8 @@ class Grille:
         Renvoie un tuple (id_objet, booleen_de_resultat)"""
 
 
-        assert (ligne <= len(self.contenu[0])), f"{ligne} > {len(self.contenu[0])}"
-        assert (col <= len(self.contenu)), f"{col} > {len(self.contenu)}"
+        assert (ligne <= len(self.contenu)), f"{ligne} > {len(self.contenu)}"
+        assert (col <= len(self.contenu[0])), f"{col} > {len(self.contenu[0])}"
 
 
         if self.contenu[ligne][col] == identifiant:

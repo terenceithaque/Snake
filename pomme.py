@@ -23,8 +23,6 @@ class Pomme(pygame.sprite.Sprite):
         self.ecran = ecran
 
 
-        # Identifiant de la pomme
-        self.identifiant = 2
 
 
         # Grille du jeu

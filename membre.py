@@ -27,8 +27,7 @@ class Membre(pygame.sprite.Sprite):
         self.image = pygame.image.load(self.chemin_image)
         self.rect = self.image.get_rect()
 
-        # Identifiant du membre dans la grille
-        self.identifiant = 1
+        
 
 
         

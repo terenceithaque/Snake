@@ -37,8 +37,11 @@ class Jeu:
 
         # Définir le groupe des pommes
         self.pommes = pygame.sprite.Group()
+        # Pommes piégées
+        self.pommes_piegees = pygame.sprite.Group()
         # Ajouter une première pomme au groupe
         self.pommes.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre))
+        self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))
 
 
         # Messages affichés sur l'état de la pause
@@ -211,7 +214,11 @@ class Jeu:
 
             # Afficher les pommes
             for pomme in self.pommes:
-                pomme.afficher()   
+                pomme.afficher()
+
+            # Afficher les pommes piégées
+            for pomme in self.pommes_piegees:
+                pomme.afficher()       
 
 
             self.afficher_message_pause()
