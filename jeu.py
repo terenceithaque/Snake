@@ -283,10 +283,11 @@ class Jeu:
             for pomme in self.pommes_piegees:
                 # Si le serpent avale une pomme piégée
                 if self.serpent.verifier_mange_pomme(pomme):
-                    # Probabilité de 50 % que le joueur meure
+                    # Probabilité de 25 % que le joueur meure
+                    pomme.kill()
                     proba_mort = random.randint(0, 100)
                     print("Probabilité de mort :", proba_mort)
-                    if proba_mort >= 50:
+                    if proba_mort >= 75:
                         
                         
                         self.game_over("Vous avez mangé une pomme piégée et vous êtes mort(e).")
