@@ -292,7 +292,7 @@ class Jeu:
                         
                         self.game_over("Vous avez mangé une pomme piégée et vous êtes mort(e).")
                         self.serpent.tuer()
-                        pygame.time.wait(1000)
+                        pygame.time.delay(1000)
                         execution = False
 
                     # Si le joueur n'est pas mort, générer une pomme normale ou piégée
@@ -313,7 +313,7 @@ class Jeu:
                     
                     self.game_over("Vous vous êtes mangé et vous êtes mort(e).")
                     self.serpent.tuer()
-                    pygame.time.wait(1000)
+                    pygame.time.delay(1000)
                     execution = False           
 
 
