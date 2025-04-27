@@ -47,7 +47,7 @@ class Serpent(pygame.sprite.Sprite):
 
         # Points accumulés par le serpent
         self.points = 0
-        self.max_points = 0
+        self.max_points = recuperer_score()
 
         # Polices pour afficher les points
         self.police_points = pygame.font.Font(None, 36)
