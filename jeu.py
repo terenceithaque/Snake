@@ -54,8 +54,13 @@ class Jeu:
         }
 
 
-        # Police pour le message de sauvegarde
-        self.police_sauv = pygame.font.Font(None, 36)
+
+        # Messages affichés pour l'état de la sauvegarde*$
+        self.messages_sauv = {
+            False: "Appuyez sur S pour sauvegarder",
+            True : "Sauvegarde..."
+        }
+        
         
 
 
@@ -67,6 +72,8 @@ class Jeu:
 
 
         self.pause = False
+
+        self.sauvegarde = False
 
 
         # Musique du jeu
@@ -82,6 +89,16 @@ class Jeu:
         self.police_pause = pygame.font.Font(None, 25)
         affichage = self.police_pause.render(message_pause, True, (255, 255, 255))
         self.fenetre.blit(affichage, (0, 0))
+
+
+    def afficher_message_sauvegarde(self):
+        "Affiche le message de sauvegarde selon l'état actuel de sauvegarde."
+        message_sauv = self.messages_sauv[self.sauvegarde]
+        # Police pour le message de sauvegarde
+        self.police_sauv = pygame.font.Font(None, 25)
+        affichage = self.police_sauv.render(message_sauv, True, (255, 255, 255))
+        self.fenetre.blit(affichage, (0, 15))
+
 
 
     def pauser(self) -> bool:
@@ -109,6 +126,9 @@ class Jeu:
 
         # Commencer la boucle de jeu
         while execution:
+
+            self.sauvegarde = False
+
             self.fenetre.fill((0, 0, 0))
             print(self.serpent.direction)
 
@@ -180,6 +200,7 @@ class Jeu:
 
                         # Sauvegarde
                         elif evenement.key == pygame.K_s:
+                            self.sauvegarde = True
                             tete = self.serpent.obtenir_tete()
                             ligne_tete = self.grille.coordonnees(self.serpent.tete.rect.x,
                                                                  self.serpent.tete.rect.y)[0]
@@ -340,6 +361,7 @@ class Jeu:
 
             self.serpent.afficher_points()
             self.afficher_message_pause()
+            self.afficher_message_sauvegarde()
 
             
             pygame.display.flip()        

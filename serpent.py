@@ -103,7 +103,7 @@ class Serpent(pygame.sprite.Sprite):
         """Affiche le score du serpent à l'écran"""
         texte_score = self.police_points.render("Score :" +str(self.points), True, (255, 255, 255))
         texte_score_max = self.police_max_points.render("Meilleur :" + str(self.max_points), True, (255, 255, 255))
-        self.ecran.blit(texte_score, (0, 20))
+        self.ecran.blit(texte_score, (0, 30))
         self.ecran.blit(texte_score_max, (0, 40))
         
  
