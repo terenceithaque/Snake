@@ -22,31 +22,42 @@ class Serpent(pygame.sprite.Sprite):
         # Nombre de mouvements effectués par le serpent
         self.n_mouvements = 0
 
+        # Etat du jeu
+        self.etat_jeu = recuperer_partie()
+
         # Grille du jeu
         self.grille = grille
         
 
         # Direction dans laquelle le serpent se déplace
-        self.direction = "gauche"
+        self.direction = self.etat_jeu["direction_serpent"]
         self.ecran = ecran
 
 
-        self.taille = 5 # Taille du serpent (nombre de membres)
+        self.taille = self.etat_jeu["taille_serpent"] # Taille du serpent (nombre de membres)
 
         self.membres = []
         # Liste des positions de chaque membre du serpent
         self.positions = []
 
+        ligne_tete = self.etat_jeu["ligne_tete"]
+        col_tete = self.etat_jeu["col_tete"]
 
 
 
-        self.tete = self.ajouter_membre(self.grille, self.ecran, self.img_tetes["gauche"], 7, 7, True)
+
+        self.tete = self.ajouter_membre(self.grille, self.ecran, self.img_tetes[self.direction], 
+                                        ligne_tete, col_tete, True)
+        
+
+
+
         for i in range(1, self.taille):
-            self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , 7, 7+i)
+            self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , ligne_tete, col_tete+i)
             #self.noeud_2 = self.ajouter_membre(self.grille, self.ecran, "assets/images/noeud2.png", 7, 9)
 
         # Points accumulés par le serpent
-        self.points = 0
+        self.points = self.etat_jeu["points"]
         self.max_points = recuperer_score()
 
         # Polices pour afficher les points

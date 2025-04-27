@@ -52,6 +52,10 @@ class Jeu:
             False: "Appuyez espace pour mettre en pause",
             True : "Appuyez sur espace pour reprendre"
         }
+
+
+        # Police pour le message de sauvegarde
+        self.police_sauv = pygame.font.Font(None, 36)
         
 
 
@@ -106,6 +110,7 @@ class Jeu:
         # Commencer la boucle de jeu
         while execution:
             self.fenetre.fill((0, 0, 0))
+            print(self.serpent.direction)
 
 
 
@@ -175,9 +180,14 @@ class Jeu:
 
                         # Sauvegarde
                         elif evenement.key == pygame.K_s:
+                            tete = self.serpent.obtenir_tete()
+                            ligne_tete = self.grille.coordonnees(self.serpent.tete.rect.x,
+                                                                 self.serpent.tete.rect.y)[0]
+                            col_tete = self.grille.coordonnees(self.serpent.tete.rect.x,
+                                                                 self.serpent.tete.rect.y)[1]
                             print("Sauvegarde !")
                             sauvegarder_partie(self.serpent.points,
-                                               self.serpent.max_points, self.serpent.taille,
+                                               self.serpent.max_points, ligne_tete, col_tete, self.serpent.taille,
                                                self.serpent.direction)
 
 
