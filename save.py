@@ -33,4 +33,27 @@ def recuperer_score() -> int:
     return score
 
 
+
+def sauvegarder_partie(points:int, max_points:int, taille_serpent:int, direction_serpent:int) -> None:
+    """Sauvegarde l'entièreté de l'état du jeu à un moment donné au format JSON"""
+    # Dictionnaire de l'état du jeu
+    etat =  {"points":points,
+             "max_points":max_points,
+             "taille_serpent": taille_serpent,
+             "direction_serpent": direction_serpent}
+    
+    # Dossier courant
+    dossier = os.path.dirname(os.path.abspath(__file__))
+
+    # Fichier de sauvegarde
+    fichier = os.path.join(dossier, "save.json")
+
+    # Ouvrir le fichier de sauvegarde en écriture
+    with open(fichier, "w") as f:
+        # Enregistrer l'état actuel du jeu dans le fichier
+        json.dump(etat, f)
+
+
+
+
         

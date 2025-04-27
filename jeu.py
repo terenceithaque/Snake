@@ -6,6 +6,7 @@ pygame.mixer.init()
 from serpent import *
 from pomme import *
 from grille import *
+from save import *
 from tkinter import messagebox
 
 
@@ -169,7 +170,16 @@ class Jeu:
 
                         # Pause
                         elif evenement.key == pygame.K_SPACE:
-                            self.pauser()    
+                            self.pauser()
+
+
+                        # Sauvegarde
+                        elif evenement.key == pygame.K_s:
+                            print("Sauvegarde !")
+                            sauvegarder_partie(self.serpent.points,
+                                               self.serpent.max_points, self.serpent.taille,
+                                               self.serpent.direction)
+
 
 
 
