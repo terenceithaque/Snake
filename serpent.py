@@ -3,6 +3,7 @@ import pygame
 from membre import *
 from grille import *
 from pomme import *
+from save import *
         
 
     
@@ -106,6 +107,9 @@ class Serpent(pygame.sprite.Sprite):
         # Actualiser le meilleur score
         if self.points > self.max_points:
             self.max_points = self.points
+            # Sauvegarder le meilleur score
+            sauvegarder_score(self.max_points)
+
 
         return self.points    
     
