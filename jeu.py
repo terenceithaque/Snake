@@ -337,6 +337,7 @@ class Jeu:
                         execution = False
 
                     # Si le joueur n'est pas mort, générer une pomme normale ou piégée
+                    self.serpent.augmenter_points(30)
                     proba_piegee = random.randint(0, 100)
                     if proba_piegee >= 90:
                         self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))

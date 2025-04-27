@@ -53,7 +53,17 @@ class Serpent(pygame.sprite.Sprite):
 
 
         for i in range(1, self.taille):
-            self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , ligne_tete, col_tete+i)
+            if self.direction == "gauche":
+                self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , ligne_tete, col_tete+i)
+
+            elif self.direction == "droite":
+                self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , ligne_tete, col_tete-i) 
+
+            elif self.direction == "haut":
+                self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , ligne_tete+i, col_tete)
+
+            elif self.direction == "bas":
+                self.ajouter_membre(self.grille, self.ecran,"assets/images/noeud1.png" , ligne_tete-i, col_tete)           
             #self.noeud_2 = self.ajouter_membre(self.grille, self.ecran, "assets/images/noeud2.png", 7, 9)
 
         # Points accumulés par le serpent
