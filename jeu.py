@@ -210,7 +210,11 @@ class Jeu:
                             sauvegarder_partie(self.serpent.points,
                                                self.serpent.max_points, ligne_tete, col_tete, self.serpent.taille,
                                                self.serpent.direction)
-
+                            
+                            # Afficher un message au joueur
+                            self.pauser()
+                            messagebox.showinfo("Partie sauvegardée !", "Votre partie a été sauvegardée avec succès. \n Cliquez sur 'OK' pour reprendre.")
+                            self.pauser()
 
 
 
@@ -264,7 +268,7 @@ class Jeu:
                     self.serpent.ajuster_membres("horizontale")
 
 
-            self.grille.afficher()
+            #self.grille.afficher()
             # Afficher le serpent
             self.serpent.afficher()
 

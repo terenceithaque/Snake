@@ -71,8 +71,8 @@ class Serpent(pygame.sprite.Sprite):
         self.max_points = recuperer_score()
 
         # Polices pour afficher les points
-        self.police_points = pygame.font.Font(None, 36)
-        self.police_max_points = pygame.font.Font(None, 36)
+        self.police_points = pygame.font.Font(None, 25)
+        self.police_max_points = pygame.font.Font(None, 25)
 
     def charger_tete(self, fichier:str) -> pygame.Surface:
         "Charge une tête du serpent depuis un fichier PNG ou JPG, renvoie la surface correspondante."
@@ -114,7 +114,7 @@ class Serpent(pygame.sprite.Sprite):
         texte_score = self.police_points.render("Score :" +str(self.points), True, (255, 255, 255))
         texte_score_max = self.police_max_points.render("Meilleur :" + str(self.max_points), True, (255, 255, 255))
         self.ecran.blit(texte_score, (0, 30))
-        self.ecran.blit(texte_score_max, (0, 40))
+        self.ecran.blit(texte_score_max, (0, 45))
         
  
 

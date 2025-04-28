@@ -6,7 +6,7 @@ from tkinter import messagebox
 from jeu import *
 
 # Instancier et exécuter une première partie, avec une fenêtre de dimebnsions 800x600
-jeu = Jeu(800, 600)
+jeu = Jeu(800, 800)
 jeu.executer()
 # Quitter pygame quand la partie est finie.
 pygame.quit()
@@ -19,7 +19,7 @@ while True:
     if rejouer:
         # Réinitialiser pygame et relancer le jeu
         pygame.init()
-        jeu = Jeu(800, 600)
+        jeu = Jeu(800, 800)
         jeu.executer()
         # Quand la partie est finie, quitter pygame
         pygame.quit()
