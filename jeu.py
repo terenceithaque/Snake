@@ -313,11 +313,22 @@ class Jeu:
                     
                     proba_piegee = random.randint(0, 100)
                     if proba_piegee >= 90:
-                        self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))
+                        nouvelle_pomme = Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre)
+                        # Tant que la nouvelle pomme est placée sur un memnbre
+                        while any([nouvelle_pomme.position() == membre.position() for membre in self.serpent.membres]): 
+                            # La recréer jusqu'à ce qu'elle tombe sur une case libre
+                            nouvelle_pomme = Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre)
+
+                        self.pommes_piegees.add(nouvelle_pomme)
 
                     else:
-                        self.pommes.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre))
+                        nouvelle_pomme = Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre)
+                        # Tant que la nouvelle pomme est placée sur un memnbre
+                        while any([nouvelle_pomme.position() == membre.position() for membre in self.serpent.membres]): 
+                            # La recréer jusqu'à ce qu'elle tombe sur une case libre
+                            nouvelle_pomme = Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre)
 
+                        self.pommes.add(nouvelle_pomme)
                     # Ajouter un membre au serpent
                     #self.serpent.ajouter_membre(self.grille)    
                 else:    
@@ -344,10 +355,22 @@ class Jeu:
                     self.serpent.augmenter_points(30)
                     proba_piegee = random.randint(0, 100)
                     if proba_piegee >= 90:
-                        self.pommes_piegees.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre))
+                        nouvelle_pomme = Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre)
+                        # Tant que la nouvelle pomme est placée sur un memnbre
+                        while any([nouvelle_pomme.position() == membre.position() for membre in self.serpent.membres]): 
+                            # La recréer jusqu'à ce qu'elle tombe sur une case libre
+                            nouvelle_pomme = Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme_piege.png", self.fenetre)
+
+                        self.pommes_piegees.add(nouvelle_pomme)
 
                     else:
-                        self.pommes.add(Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre))
+                        nouvelle_pomme = Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre)
+                        # Tant que la nouvelle pomme est placée sur un memnbre
+                        while any([nouvelle_pomme.position() == membre.position() for membre in self.serpent.membres]): 
+                            # La recréer jusqu'à ce qu'elle tombe sur une case libre
+                            nouvelle_pomme = Pomme(self.grille, 0, 0, 7, 14, "assets/images/pomme.png", self.fenetre)
+
+                        self.pommes.add(nouvelle_pomme)
 
 
                 pomme.afficher()

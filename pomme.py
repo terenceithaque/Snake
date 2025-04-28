@@ -51,6 +51,10 @@ class Pomme(pygame.sprite.Sprite):
         print(f"Pomme placée en {(self.rect.x, self.rect.y)}, soit {self.grille.coordonnees(self.rect.x, self.rect.y)} dans la grille")
 
 
+    def position(self) -> tuple:
+        "Renvoie la position de la pomme dans la grille."
+        return (self.ligne, self.col)
+
     def afficher(self) -> None:
         "Affiche la pomme à l'écran"
         self.ecran.blit(self.image, (self.rect.x, self.rect.y))    
