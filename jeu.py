@@ -22,6 +22,7 @@ class Jeu:
         # Initialiser la fenêtre de jeu
         self.fenetre = pygame.display.set_mode((hauteur_fenetre, largeur_fenetre))
         pygame.display.set_caption("Python Snake !")
+        pygame.display.set_icon(pygame.image.load("assets/images/teteE.png"))
 
 
          # Grille du jeu
